@@ -14,7 +14,9 @@ export class RenderService {
 
   $title = signal<string>('MarkService');
 
-  //https://marked.js.org/using_advanced
+
+  //Reference: https://marked.js.org/using_advanced
+
   private marked: Marked | null = null;
 
   /**
@@ -22,9 +24,8 @@ export class RenderService {
    * Handles code blocks (Mermaid, Bash, generic) and tables.
    */
 
-
-  // https://github.com/UziTech/marked-html-renderer/blob/main/src/renderer.ts#L42
-  // private renderer = {
+  // Base on an implementation by @markedjs (MIT License)
+  // Source: https://github.com/UziTech/marked-html-renderer/blob/main/src/renderer.ts#L42
   private renderer: any = {
 
     options: null as unknown as MarkedOptions<DocumentFragment, Node | string>,
