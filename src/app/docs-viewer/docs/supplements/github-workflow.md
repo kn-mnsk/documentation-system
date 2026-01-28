@@ -151,6 +151,18 @@ Note:
 🌿 Clean Git Workflow
 ======================
 
+|Step |Action	|Purpose |
+|:---|:----------------------|:-------------------|
+|1	| Pull on main	| Stay up to date |
+|2	| Create branch	| Isolate work    |
+|3	| Make changes	| Implement feature/fix |
+|4	| Commit	| Save work locally |
+|5	| Push	| Upload branch to GitHub |
+|6	| Verify branch	| Ensure it exists remotely |
+|7	| Open PR	| Review + merge |
+|8	| Delete branch	| Keep repo clean |
+
+
 1. Start on main and sync
 
 - Switch to the main branch in VS Code
