@@ -147,15 +147,6 @@ export class DocsViewer implements OnInit, AfterViewInit, OnDestroy {
 
     await this.loadAndRenderMarkdown(docId);
 
-    // if (this.isFirstLoad) {
-    //   // console.log(`Log: ${this.title()} isFirstLoad=True and second load happens`);
-    //   this.isFirstLoad = false;
-
-    //   // force effect to reload markdown for layout stabilization, because of the mermaid rendering issue, which causes the unwarpped label text
-    //   this.$reload.update(n => n + 1);
-
-    // }
-
   }
 
   /**
