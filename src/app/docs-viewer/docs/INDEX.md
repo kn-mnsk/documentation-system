@@ -18,4 +18,8 @@ __This document is the master reference for the entire documentation rendering s
 >[**details**](#docId:appreadme)
 
 
+GitHub README
+-------------
+>1. [GitHub Workflow](#docId:doc50-github-0100)
+
 
