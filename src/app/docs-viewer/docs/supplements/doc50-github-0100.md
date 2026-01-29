@@ -24,13 +24,11 @@ GitHub WorkFflow
 3. Connect your local repo to GitHub
 
 >- Copy the repo URL from GitHub (HTTPS or SSH):
-
     ```bash
     git remote add origin https://github.com/<username>/<repo>.git
     ```
 
 4. Push it
-
 ```bash
     git branch -M main
     git push -u origin main
@@ -38,117 +36,118 @@ GitHub WorkFflow
 
 That’s it — app is now live on GitHub.
 
-Note: 
+**Note:** 
 1. .gitignore file
 
 > What the .gitignore actually does:
 
->>- Folders that will NOT be uploaded: e.g.
+>- Folders that will NOT be uploaded: e.g.
 
->>>- /dist
->>>- /tmp
->>>- /out-tsc
->>>- /bazel-out
->>>- /node_modules
->>>- /.angular/cache
->>>- .sass-cache/
->>>- /coverage
->>>- /typings
->>>- __screenshots__/
->>>- .idea/, .vscode/* (with exceptions), .history/*
+>>- /dist
+>>- /tmp
+>>- /out-tsc
+>>- /bazel-out
+>>- /node_modules
+>>- /.angular/cache
+>>- .sass-cache/
+>>- /coverage
+>>- /typings
+>>- __screenshots__/
+>>- .idea/, .vscode/* (with exceptions), .history/*
 
->>- Files that will NOT be uploaded
+>- Files that will NOT be uploaded:
 
->>>- npm-debug.log
->>>- yarn-error.log
->>>- .DS_Store
->>>- Thumbs.db
->>>- libpeerconnection.log
->>>- testem.log
->>>- Various IDE/editor metadata files
+>>- npm-debug.log
+>>- yarn-error.log
+>>- .DS_Store
+>>- Thumbs.db
+>>- libpeerconnection.log
+>>- testem.log
+>>- Various IDE/editor metadata files
 
->>- Files that will be uploaded
+>- Files that will be uploaded:
 
->>> Anything not matched by the patterns above.
->>>> For example:
->>>- Your Angular source code (src/)
->>>- Your documentation markdown files
->>>- Your scripts
->>>- Your configuration files (angular.json, package.json, etc.)
->>>- Your README, ADRs, diagrams, onboarding docs
+>> Anything not matched by the patterns above. For example:
+>>- Your Angular source code (src/)
+>>- Your documentation markdown files
+>>- Your scripts
+>>- Your configuration files (angular.json, package.json, etc.)
+>>- Your README, ADRs, diagrams, onboarding docs
 
->>- A Subtle Detail: The .vscode Exceptions
->>> Your .gitignore says:
+>- A Subtle Detail: The .vscode Exceptions
+>> Your .gitignore says:
 
-      Code
-      .vscode/*
-      !.vscode/settings.json
-      !.vscode/tasks.json
-      !.vscode/launch.json
-      !.vscode/extensions.json
-      Meaning:
+>>> Code
 
-      Everything in .vscode/ is ignored except those four files.
+>>> .vscode/*
 
-      This is a common pattern for sharing workspace settings without leaking personal editor clutter.
+>>> !.vscode/settings.json
 
-> ***How to double-check locally***
+>>> !.vscode/tasks.json
 
-    ```bash
+>>> !.vscode/launch.json
+
+>>> !.vscode/extensions.json
+
+>>> Meaning:
+
+>>> Everything in .vscode/ is ignored except those four files.
+
+>> This is a common pattern for sharing workspace settings without leaking personal editor clutter.
+
+> ***How to double-check locally*** 
+```bash
     git status --ignored
-    ```
+```
 
 2. External Code Attribution
 
 >1. Full Files
->> When an entire file originates from another author (with or without modifications), <u>include this header at the top of the file</u>:
 
-    ```ts
-    /**
-     * Original work by: <Author Name>
-     * Source: <URL>
-     * License: <License Name>
-     * Notes: <Describe modifications or adaptation>
-     */
-    ```
+>> When an entire file originates from another author (with or without modifications), <u>include this header at the top of the file</u>:
+```ts
+        /**
+         * Original work by: <Author Name>
+         * Source: <URL>
+         * License: <License Name>
+         * Notes: <Describe modifications or adaptation>
+         */
+```
 
 >2. Functions or Snippets
 
 >> When only a function or small block is reused, <u>place this comment directly above it</u>>:
 
-      ```ts
-      // Based on an implementation by <Author Name> (<License Name>)
-      // Source: <URL>
-
-      ```
+```ts
+        // Based on an implementation by <Author Name> (<License Name>)
+        // Source: <URL>
+```
 
 >3. Conceptual Inspiration
 
 >> When the idea came from external work but the implementation is original:
 
-      ```ts
-      // Inspired by an approach from <Author Name>
-      // Source: <URL>
-
-      ```
+```ts
+        // Inspired by an approach from <Author Name>
+        // Source: <URL>
+```
 
 >4. Centralized Credits (Optional)
 
 >> If multiple external sources are used, they may also be listed in a Credits section:
 
-      ```code
-      ## Credits
-      This project includes or adapts code from the following sources:
+```Code
+        ## Credits
+        This project includes or adapts code from the following sources:
 
-      - <Author Name> — <Project Name>  
-        License: <License Name>  
-        Source: <URL>
+        - <\ Author Name >\ - <\Project Name>\  
+          License: <\License Name>\  
+          Source: <\URL>\
 
-      - <Author Name> — <Project Name>  
-        License: <License Name>  
-        Source: <URL>
-
-      ```
+        - <\Author Name>\ — <\Project Name>\
+          License: <\License Name>\
+          Source: <\URL>\
+```
 
 >5. License Preservation
 
@@ -169,22 +168,22 @@ Note:
 |1	| Start on main	| Ensure local repo macthes GitHub: |
 | | | * Switch to main | 
 | | | * Pull latest changes |
-|2	| Create a task branch	| Isolate work and keep history clean |
+|2	| Create a task branch	| Isolate work and keep history clean: |
 | | | * Create new branch: feature/..., fix/..., docs/... |
-|3	| Make focused changes	| Avoid mixing unrelated changes |
+|3	| Make focused changes	| Avoid mixing unrelated changes: |
 | | | * Edit only files related to the task |
-|4	| Commit cleanly 	| Maintain readable, reversible history |
+|4	| Commit cleanly 	| Maintain readable, reversible history: |
 | | | * Stage only relevant files |
 | | | * Commit using: | 
 | | |&emsp;&emsp;&emsp type(scope): short description
-|5	| Push the branch | Make your work visible on GitHub |
+|5	| Push the branch | Make your work visible on GitHub: |
 | | | * Publish branch (first push) |
 | | | * Push updates (later pushes) |
-|6	| Open a Pull Request(PR)	| Review and integrate work into main |
+|6	| Open a Pull Request(PR)	| Review and integrate work into main: |
 |	| | * Compare & pull request |
 |	| | * Describe what changed and why |
 |	| | * Merge when ready |
-|7	| Clean up	| Keep repo tidy and stay synced |
+|7	| Clean up	| Keep repo tidy and stay synced: |
 | | | * Delete branch on GitHub |
 | | | * Switch back to main |
 | | | * Pull latest changes |
@@ -192,21 +191,21 @@ Note:
 
 1. Start on main and sync
 
-- Switch to the main branch in VS Code
-- Pull the latest changes (or click Sync Changes)
-- Confirm the working directory is clean
+>- Switch to the main branch in VS Code
+>- Pull the latest changes (or click Sync Changes)
+>- Confirm the working directory is clean
 
 > ***Purpose: ensures ther local environment matches the remote repository. before starting new work***
 
 2. Create a new branch for a task
 
-- Click the branch name in the bottom-left of VS Code
-- Select Create new branch
-- Use a descriptive name(examples):
+>- Click the branch name in the bottom-left of VS Code
+>- Select Create new branch
+>- Use a descriptive name(examples):
 
->- feature/scroll-restoration
->- fix/markdown-renderer
->- docs/adr-print-mode
+>>- feature/scroll-restoration
+>>- fix/markdown-renderer
+>>- docs/adr-print-mode
 
 > VS Code switches to the new branch automatically
 
@@ -214,27 +213,25 @@ Note:
 
 3. Make focused changes
 
-- Edit files normally
-- Avoid mixing unrelated changes in the same branch
+>- Edit files normally
+>- Avoid mixing unrelated changes in the same branch
 
 > ***Purpose: akeeps commits meaningful and PRs easy to understand.***
 
 4. Commit changes
 
-- Open the Source Control panel:
-
+>- Open the Source Control panel:
 >- Stage only the files (click the + next to each file or next to Changes)
 >- Write a clear commit message, and typcal message format:
-
-    ```Code
-    type(scope): short description
-    ```
-    Examples:
-    ```Code
-    feat(scroll): implement scroll restoration
-    fix(renderer): resolve KaTeX wrapping issue
-    docs(adr): add print-mode architecture ADR
-    ```
+```Code
+        type(scope): short description
+```
+>> Examples:
+```Code
+        feat(scroll): implement scroll restoration
+        fix(renderer): resolve KaTeX wrapping issue
+        docs(adr): add print-mode architecture ADR
+```
 
 >- Click ✔ Commit
 
@@ -242,7 +239,7 @@ Note:
 
 5. Push branch
 
-- Click Publish Branch (for new branches), or Click the ↑ Push icon
+>- Click Publish Branch (for new branches), or Click the ↑ Push icon
 
 > ***Purpose: uploads the branch to GitHub so it becomes visible for review.***
 
@@ -382,6 +379,7 @@ stateDiagram-v2
     Synced --> [*]
 
 ```
+----
 
 🌿 Git Branching Policy
 ----
@@ -410,14 +408,14 @@ This repository follows a lightweight, contributor‑friendly branching strategy
 
 > Branch types:
 
-    | Type	| Naming Convention	| Purpose |
-    |:------------|:-----------------|:-----------------|
-    | Feature	| feature/ | New functionality or enhancements |
-    | Fix	| fix/ | Bug fixes or patches |
-    | Refactor | refactor/ | Structural or code‑quality improvements |
-    | Experiment | experiment/ | Spikes, prototypes, or exploratory work |
+| Type	| Naming Convention	| Purpose |
+|:------------|:-----------------|:-----------------|
+| Feature	| feature/ | New functionality or enhancements |
+| Fix	| fix/ | Bug fixes or patches |
+| Refactor | refactor/ | Structural or code‑quality improvements |
+| Experiment(*1) | experiment/ | Spikes, prototypes, or exploratory work |
 
->> Note: Experimental Work such as prototypes or uncertain ideas:
+>> Note *1: Experimental Work such as prototypes or uncertain ideas:
 >>- Use experiment/<idea>
 >>- Push if you want to share or back up your work
 >>- Merge only if the experiment becomes a real feature
@@ -426,11 +424,11 @@ This repository follows a lightweight, contributor‑friendly branching strategy
 
 > Rules for Working Branches:
 
-- Keep branches focused and scoped
-- Commit as often as needed
-- Push freely (CI will validate your work)
-- Open a pull request when the work is complete
-- Delete the branch after merge
+>- Keep branches focused and scoped
+>- Commit as often as needed
+>- Push freely (CI will validate your work)
+>- Open a pull request when the work is complete
+>- Delete the branch after merge
 
 3. Pull Request Workflow
 
@@ -443,6 +441,7 @@ This repository follows a lightweight, contributor‑friendly branching strategy
 >7. Delete the branch after merge
 
 > Note: ***Pull requests should be small, focused, and easy to review. Large changes should be split into multiple branches.***
+----
 
 ```mermaid
 ---
