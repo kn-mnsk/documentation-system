@@ -1,7 +1,12 @@
 GitHub WorkFflow
 ====
 
-🆕 Creating a New GitHub Repository
+<h2 id="creating-new-github-repository">🆕 Creating a New GitHub Repository</h2>
+
+next -> [Git Workflow](#inlineId:git-workflow)
+
+last -> [Git Branching Policy](#inlineId:git-branching-policy)
+
 ----
 
 1. Create the repo on GitHub
@@ -160,7 +165,12 @@ That’s it — app is now live on GitHub.
 
 
 ---
-🌿 Clean Git Workflow
+<h2 id="git-workflow">🌿 Git Workflow</h2>
+
+previous ->  [Creating a New GitHub Repository](#inlineId:creating-new-github-repository)
+
+next ->  [Git Branching Policy](#inlineId:git-branching-policy)
+
 ----
 
 |Step |Action	|Purpose |
@@ -381,7 +391,12 @@ stateDiagram-v2
 ```
 ----
 
-🌿 Git Branching Policy
+<h2 id="git-branching-policy">🌿 Git Branching Policy</h2>
+
+top -> [Creating a New GitHub Repository](#inlineId:creating-new-github-repository)
+
+previous -> [Git Workflow](#inlineId:git-workflow)
+
 ----
 
 This repository follows a lightweight, contributor‑friendly branching strategy designed to keep development fast, isolated, and easy to review. All work happens in short‑lived branches, and every change enters the codebase through a pull request.
