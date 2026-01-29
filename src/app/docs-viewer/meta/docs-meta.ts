@@ -64,6 +64,12 @@ export const DocsList: DocMeta[] = [
     "filetype": "md",
     "path": "app/docs-viewer/docs/supplements/doc10-app-0110.md",
   },
+  {
+    "id": "doc50-github-0100",
+    "title": "GitHub Workflow",
+    "filetype": "md",
+    "path": "app/docs-viewer/docs/supplements/doc50-github-0100.md",
+  },
   // TypeScript
   {
     "id": "docs-meta",
@@ -114,7 +120,7 @@ export const DocsList: DocMeta[] = [
     "path": "app/docs-viewer/markdown-enhancers/mermaid.service.ts",
   },
   {
-    "id": "sessdion-state",
+    "id": "session-state",
     "title": "Session State Manager",
     "filetype": "ts",
     "path": "app/docs-viewer/markdown-enhancers/session-state.manager.ts",
