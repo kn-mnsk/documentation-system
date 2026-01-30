@@ -175,28 +175,13 @@ next ->  [Git Branching Policy](#inlineId:git-branching-policy)
 
 |Step |Action	                  |Purpose                   |
 |:----|:------------------------|:-------------------------|
-|1	| **Start on main**	| Ensure local repo macthes GitHub: |
-| | | * Switch to main | 
-| | | * Pull latest changes |
-|2	| Create a task branch	| Isolate work and keep history clean: |
-| | | • Create new branch: feature/..., fix/..., docs/... </br> • Publish the branch |
-|3	| Make focused changes	| Avoid mixing unrelated changes: |
-| | | * Edit only files related to the task |
-|4	| Commit cleanly 	| Maintain readable, reversible history: |
-| | | * Stage only relevant files |
-| | | * Commit using: | 
-| | |   `type(scope): short description` |
-|5	| Push the branch | Make your work visible on GitHub: |
-| | | * Publish branch (first push) |
-| | | * Push updates (later pushes) |
-|6	| Open a Pull Request(PR)	| Review and integrate work into main: |
-|	| | * Compare & pull request |
-|	| | * Describe what changed and why |
-|	| | * Merge when ready |
-|7	| Clean up	| Keep repo tidy and stay synced: |
-| | | * Delete branch on GitHub |
-| | | * Switch back to main |
-| | | * Pull latest changes |
+|1	| Start on main	| Ensure local repo macthes GitHub:<br>&emsp; • Switch to main<br>&emsp; • Pull latest changes|
+|2	| Create a task branch	| Isolate work and keep history clean:<br>&emsp; • Create new branch: feature/..., fix/..., docs/...<br>&emsp; • Publish the branch |
+|3	| Make focused changes	| Avoid mixing unrelated changes:<br>&emsp; • Edit only files related to the task|
+|4	| Commit cleanly 	| Maintain readable, reversible history:<br>&emsp; • Stage only relevant files<br>&emsp; • Commit using message format:<br>&emsp;&emsp; ```type(scope): short description```|
+|5	| Push the branch | Make your work visible on GitHub:<br>&emsp; • Publish branch (first push)<br>&emsp; • Push updates (later pushes)|
+|6	| Open a Pull Request(PR)	| Review and integrate work into main:<br>&emsp; • Compare & pull request<br>&emsp; • Describe what changed and why<br>&emsp; • Merge when ready  |
+|7	| Clean up	| Keep repo tidy and stay synced:<br>&emsp; • Delete branch on GitHub<br>&emsp; • Switch back to main<br>&emsp; • Pull latest changes|
 
 
 1. Start on main and sync

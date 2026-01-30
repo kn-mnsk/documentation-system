@@ -221,6 +221,8 @@ a {
 /*  scss for markdown-viewer.html*/
 // table
 .markdownViewer .md-table {
+  position: relative;
+  left: 5vh;
   border-collapse: collapse;
   width: fit-content;//100%;
   margin-top: 1rem;
@@ -240,7 +242,7 @@ a {
   border: 1px solid var(--table-border);
   // border: 1px solid #1bee22;
   padding: 0.5rem;
-  // text-align: center;
+  vertical-align: top;
 }
 
 .markdownViewer .md-table tr:nth-child(even) {
