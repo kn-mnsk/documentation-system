@@ -126,6 +126,8 @@ export class RenderService {
         out.setAttribute('align', token.align);
       }
 
+      console.log(`Log: ${this.$title()} renderer tablecell`, out);
+
       return out;
     },
 
@@ -167,7 +169,7 @@ export class RenderService {
     // 1. Markdown -> html
     const html = this.marked?.parse(markdown) as string;
     viewer.innerHTML = html;
-    // console.log(`Log: ${this.$title()} renderMarkdownToDOM html=`, html);
+    console.log(`Log: ${this.$title()} renderMarkdownToDOM html=`, html);
 
     // 2. Sanitize text nodes (replace non-breaking spaces)
     sanitizeNodeText(viewer);

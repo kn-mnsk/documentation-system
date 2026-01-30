@@ -161,6 +161,10 @@ export class DocsViewer implements OnInit, AfterViewInit, OnDestroy {
       console.error(`Error ${this.$title()} : class="markdownViewer" not found`); return;
     }
 
+
+    console.log(`Log: ${this.$title()} loadAndRenderMarkdown viewer=`, viewer);
+
+
     const docMeta = this.docsRegistry.get(docId);
     const docPath = docMeta?.path;
     if (!docPath) {
@@ -175,9 +179,12 @@ export class DocsViewer implements OnInit, AfterViewInit, OnDestroy {
     this.clearPreviousDoc();
 
     try {
+
       let markdown = await firstValueFrom<string>(
         this.renderService.loadMarkdown(docPath).pipe(take(1))
       );
+
+      // console.log(`Log: ${this.$title()} loadAndRenderMarkdown try loadMarkdown`, markdown);
 
       viewer.classList.add('hidden-during-render');
 
@@ -193,10 +200,15 @@ export class DocsViewer implements OnInit, AfterViewInit, OnDestroy {
         this.$isDarkMode()
       );
 
+      console.log(`Log: ${this.$title()} loadAndRenderMarkdown try renderMarkdownToDOM`, viewer);
+
       viewer.classList.remove('hidden-during-render');
 
       // After render: wire internal links and click & scroll handling
       this.internalLinks = viewer.querySelectorAll('a[href^="#docId:"], a[href^="#inlineId:"]');
+
+      console.log(`Log: ${this.$title()} loadAndRenderMarkdown try internalLinks`, this.internalLinks);
+
 
       this.internalLinks.forEach((el: Element) => {
         el.addEventListener('click', this.clickHandler);
@@ -212,7 +224,7 @@ export class DocsViewer implements OnInit, AfterViewInit, OnDestroy {
 
     } catch (er) {
       viewer.innerHTML = `<p><em>Documentation not found. url=${docPath}</em></p>`;
-      console.error(`Error: ${this.$title()} MarkdownRenderService.loadAndRender`, JSON.stringify(er));
+      console.error(`Error: ${this.$title()} MarkdownRenderService.loadAndRender`, docId, JSON.stringify(er));
     }
 
     // console.log(`Log: ${this.title()} \nloadMarkdown() Finished`);
