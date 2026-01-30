@@ -173,19 +173,19 @@ next ->  [Git Branching Policy](#inlineId:git-branching-policy)
 
 ----
 
-|Step |Action	|Purpose |
-|:---|:------------------------|:-------------------------|
-|1	| Start on main	| Ensure local repo macthes GitHub: |
+|Step |Action	                  |Purpose                   |
+|:----|:------------------------|:-------------------------|
+|1	| **Start on main**	| Ensure local repo macthes GitHub: |
 | | | * Switch to main | 
 | | | * Pull latest changes |
 |2	| Create a task branch	| Isolate work and keep history clean: |
-| | | * Create new branch: feature/..., fix/..., docs/... |
+| | | • Create new branch: feature/..., fix/..., docs/... </br> • Publish the branch |
 |3	| Make focused changes	| Avoid mixing unrelated changes: |
 | | | * Edit only files related to the task |
 |4	| Commit cleanly 	| Maintain readable, reversible history: |
 | | | * Stage only relevant files |
 | | | * Commit using: | 
-| | |&emsp;&emsp;&emsp type(scope): short description
+| | |   `type(scope): short description` |
 |5	| Push the branch | Make your work visible on GitHub: |
 | | | * Publish branch (first push) |
 | | | * Push updates (later pushes) |
