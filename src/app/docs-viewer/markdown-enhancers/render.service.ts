@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Tokens, Tokenizer, Marked, Renderer, MarkedOptions, Parser } from 'marked';
+import { Tokens, Tokenizer, Marked, Renderer, MarkedOptions, Parser, marked, parser, lexer, parse } from 'marked';
 import { Observable } from 'rxjs';
 // import mermaid from 'mermaid';
 
@@ -17,7 +17,7 @@ export class RenderService {
 
   //Reference: https://marked.js.org/using_advanced
 
-  private marked: Marked | null = null;
+  // private marked: Marked | null = null;
 
   /**
    * Custom renderer for Markdown → HTML.
@@ -119,14 +119,21 @@ export class RenderService {
     },
 
     tablecell(token: Tokens.TableCell) {
+
       const content = this.parser.parseInline(token.tokens);
-      const out = document.createElement(token.header ? 'th' : 'td');
-      out.append(content);
+
+      // console.log(`Log: RederService renderer tablecell content=`, content);
+
+      const cell = document.createElement(token.header ? 'th' : 'td');
+      cell.innerHTML = content;
+      // cell.append(content);
       if (token.align) {
-        out.setAttribute('align', token.align);
+        cell.setAttribute('align', token.align);
       }
 
-      return out;
+      // console.log(`Log: RederService renderer tablecell`, out);
+
+      return cell;
     },
 
   }
@@ -165,7 +172,8 @@ export class RenderService {
   ): Promise<void> {
 
     // 1. Markdown -> html
-    const html = this.marked?.parse(markdown) as string;
+    const html = marked.parse(markdown) as string;
+    // const html = this.marked?.parse(markdown) as string;
     viewer.innerHTML = html;
     // console.log(`Log: ${this.$title()} renderMarkdownToDOM html=`, html);
 
@@ -239,10 +247,11 @@ export class RenderService {
   // Marked Initialization
   //--------------------------
   private initializeMarked(): void {
-    if (this.marked) return;
+    // if (this.marked) return;
 
-    this.marked = new Marked();
-    this.marked.use(
+    // this.marked = new Marked();
+    marked.use(
+    // this.marked.use(
       {
         async: false,
         breaks: false,

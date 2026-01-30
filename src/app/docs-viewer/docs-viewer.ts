@@ -161,11 +161,14 @@ export class DocsViewer implements OnInit, AfterViewInit, OnDestroy {
       console.error(`Error ${this.$title()} : class="markdownViewer" not found`); return;
     }
 
+    // console.log(`Log: ${this.$title()} loadAndRenderMarkdown viewer=`, viewer);
+
     const docMeta = this.docsRegistry.get(docId);
     const docPath = docMeta?.path;
     if (!docPath) {
       console.warn(`Warn ${this.$title()} : not found`, docId);
-      navigate(this.router, ['/fallback']);
+      viewer.innerHTML = `<p><em>Documentation not found. url=${docPath}</em></p>`;
+      // navigate(this.router, ['/fallback']);
       return;
     };
 
@@ -175,9 +178,12 @@ export class DocsViewer implements OnInit, AfterViewInit, OnDestroy {
     this.clearPreviousDoc();
 
     try {
+
       let markdown = await firstValueFrom<string>(
         this.renderService.loadMarkdown(docPath).pipe(take(1))
       );
+
+      // console.log(`Log: ${this.$title()} loadAndRenderMarkdown try loadMarkdown`, markdown);
 
       viewer.classList.add('hidden-during-render');
 
@@ -193,10 +199,15 @@ export class DocsViewer implements OnInit, AfterViewInit, OnDestroy {
         this.$isDarkMode()
       );
 
+      // console.log(`Log: ${this.$title()} loadAndRenderMarkdown try renderMarkdownToDOM`, viewer);
+
       viewer.classList.remove('hidden-during-render');
 
       // After render: wire internal links and click & scroll handling
       this.internalLinks = viewer.querySelectorAll('a[href^="#docId:"], a[href^="#inlineId:"]');
+
+      // console.log(`Log: ${this.$title()} loadAndRenderMarkdown try internalLinks`, this.internalLinks);
+
 
       this.internalLinks.forEach((el: Element) => {
         el.addEventListener('click', this.clickHandler);
@@ -211,8 +222,9 @@ export class DocsViewer implements OnInit, AfterViewInit, OnDestroy {
 
 
     } catch (er) {
-      viewer.innerHTML = `<p><em>Documentation not found. url=${docPath}</em></p>`;
-      console.error(`Error: ${this.$title()} MarkdownRenderService.loadAndRender`, JSON.stringify(er));
+      viewer.classList.remove('hidden-during-render');
+      viewer.innerHTML = `<p><em>${this.$title()} Error in Try-Catch  renderService.loadAndRender. <br> error=${er}, <br> url=${docPath}, <br> docId=${docId}, <br> viewer=${JSON.stringify(viewer)}</em></p>`;
+      console.error(`Error: ${this.$title()} MarkdownRenderService.loadAndRender`, docId, viewer, JSON.stringify(er));
     }
 
     // console.log(`Log: ${this.title()} \nloadMarkdown() Finished`);
