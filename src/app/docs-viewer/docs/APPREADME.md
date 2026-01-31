@@ -11,9 +11,9 @@ __This document is the master reference for the entire documentation rendering s
 
 > The Docs-Vierwer folder contains the documentation viewer and the Markdown rendering pipeline used throughout the project. It includes the viewer component, the renderer service, enhancement logic, lifecycle coordination, and documentation.
 
-<div class="align-center10">
+```folder
+Folder Structure
 
-```
 app/
 │  
 ├── docs-viewer/
@@ -53,7 +53,6 @@ app/
 ```
 [(*1) See DocsList in th the docs-meta.ts](#docId:docs-meta)
 
-</div>
 
 --- 
 <!-- ## 2. Key Features -->

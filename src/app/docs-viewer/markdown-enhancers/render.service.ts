@@ -37,7 +37,7 @@ export class RenderService {
       // Wrap the folowings blocks in a div
       if (language === "mermaid") {
         // console.log(`Log MarkdownRenderService render code() langauge=`, language, token.text);
-        return `<pre class="mermaid">${token.text}</pre>`;
+        return `<div class="mermaid-container"><pre class="mermaid">${token.text}</pre></div>`;
       }
 
       if (language === "bash") {
@@ -54,6 +54,12 @@ export class RenderService {
       if (language === "code" || language === "Code") {
         // Wrap Bash code blocks in a div
         return `<pre class="code">${token.text}</pre>`;
+      }
+
+      if (language === "folder" ) {
+        // Wrap Bash code blocks in a div
+        return `<div class="folder-container">
+        <pre class="folder">${token.text}</pre></div>`;
       }
 
       return `<pre><code class="language-${language}">${token.text}</code></pre>`;
@@ -108,8 +114,12 @@ export class RenderService {
 
       table.append(tbody);
 
-      // return table;
-      return table.outerHTML;
+      // return table.outerHTML;
+
+      const div = document.createElement('div');
+      div.className = "md-table-container";
+      div.append(table);
+      return div.outerHTML;
     },
 
     tablerow(text: any) {
@@ -125,15 +135,18 @@ export class RenderService {
       // console.log(`Log: RederService renderer tablecell content=`, content);
 
       const cell = document.createElement(token.header ? 'th' : 'td');
+      // const div = document.createElement('div');
+      // div.innerHTML = content;
+      // cell.append(div);
       cell.innerHTML = content;
       // cell.append(content);
       if (token.align) {
         cell.setAttribute('align', token.align);
       }
-
       // console.log(`Log: RederService renderer tablecell`, out);
 
       return cell;
+      // return cell;
     },
 
   }
@@ -251,7 +264,7 @@ export class RenderService {
 
     // this.marked = new Marked();
     marked.use(
-    // this.marked.use(
+      // this.marked.use(
       {
         async: false,
         breaks: false,

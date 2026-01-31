@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 
-import mermaid, {MermaidConfig} from 'mermaid';
+import mermaid, { MermaidConfig } from 'mermaid';
 
 import { isBrowser } from '../../global.utils/global.utils';
 
