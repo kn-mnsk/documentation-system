@@ -34,16 +34,22 @@ export const DocsList: DocMeta[] = [
     "path": "app/docs-viewer/docs/INDEX.md",
   },
   {
-    "id": "angularreadme",
+    "id": "angular-readme",
     "title": "Angular README",
     "filetype": "md",
     "path": "app/docs-viewer/docs/ANGULARREADME.md",
   },
   {
-    "id": "appreadme",
+    "id": "application-readme",
     "title": "Application README",
     "filetype": "md",
     "path": "app/docs-viewer/docs/APPREADME.md",
+  },
+  {
+    "id": "github-readme",
+    "title": "GitHub README",
+    "filetype": "md",
+    "path": "app/docs-viewer/docs/GITHUBREADME.md",
   },
   {
     "id": "index",
@@ -64,16 +70,10 @@ export const DocsList: DocMeta[] = [
     "filetype": "md",
     "path": "app/docs-viewer/docs/supplements/doc10-app-0110.md",
   },
-  {
-    "id": "doc50-github-0100",
-    "title": "GitHub Workflow",
-    "filetype": "md",
-    "path": "app/docs-viewer/docs/supplements/doc50-github-0100.md",
-  },
   // TypeScript
   {
     "id": "docs-meta",
-    "title": "Doc Meta",
+    "title": "Docs Meta",
     "filetype": "ts",
     "path": "app/docs-viewer/meta/docs-meta.ts",
   },
@@ -85,7 +85,7 @@ export const DocsList: DocMeta[] = [
   },
   {
     "id": "app",
-    "title": "App Componenta",
+    "title": "App Component",
     "filetype": "ts",
     "path": "app/app.ts",
   },
@@ -97,13 +97,13 @@ export const DocsList: DocMeta[] = [
   },
   {
     "id": "viewerdirective",
-    "title": "DocsViewer Component",
+    "title": "DocsViewer Directive",
     "filetype": "ts",
     "path": "app/docs-viewer/docs-viewer.directive.ts",
   },
   {
     "id": "renderservice",
-    "title": "Rende Service ",
+    "title": "Render Service ",
     "filetype": "ts",
     "path": "app/docs-viewer/markdown-enhancers/render.service.ts",
   },
@@ -115,7 +115,7 @@ export const DocsList: DocMeta[] = [
   },
   {
     "id": "mermaidservice",
-    "title": "MermaidService ",
+    "title": "Mermaid Service ",
     "filetype": "ts",
     "path": "app/docs-viewer/markdown-enhancers/mermaid.service.ts",
   },

@@ -40,7 +40,6 @@ export class DocsViewer implements OnInit, AfterViewInit, OnDestroy {
 
   protected docTitle!: string | undefined;
 
-  // private isFirstLoad: boolean = true;
   // keep a reference to the handler
   private clickHandler = this.onClick.bind(this);
   private scrollHandler = this.onScroll.bind(this);
@@ -78,20 +77,12 @@ export class DocsViewer implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void { }
 
 
-  ngAfterViewInit(): void {
-    if (this.$isBrowser()) {
-
-    }
-
-  }
-
+  ngAfterViewInit(): void {  }
 
   ngOnDestroy(): void {
     if (this.$isBrowser()) {
       this.clearPreviousDoc();
-
       console.log(`Log: ${this.$title()} ngOnDestroy completed isBrowser=true`);
-
     }
 
     console.log(`Log: ${this.$title()} ngOnDestroy completed`);
@@ -168,7 +159,7 @@ export class DocsViewer implements OnInit, AfterViewInit, OnDestroy {
     if (!docPath) {
       console.warn(`Warn ${this.$title()} : not found`, docId);
       viewer.innerHTML = `<p><em>Documentation not found. url=${docPath}</em></p>`;
-      // navigate(this.router, ['/fallback']);
+  
       return;
     };
 

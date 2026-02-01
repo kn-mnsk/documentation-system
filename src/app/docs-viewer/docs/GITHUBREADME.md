@@ -1,15 +1,17 @@
-GitHub WorkFflow
+[1st]:#inlineId:1-creating-new-github-repository "§1. Creating a New GitHub Repository"
+[2nd]:#inlineId:2-daily-workflow "§2. Daily Workflow"
+[3rd]:#inlineId:3-git-branching-policy "§3. Git Branching Policy"
+
+GitHub README (ID: github-readme)
 ====
+---
 
-<h2 id="creating-new-github-repository">🆕 Creating a New GitHub Repository</h2>
+**[last section][3rd] &emsp; [next section][2nd]**  
 
-next -> [Git Workflow](#inlineId:git-workflow)
+<h2 id="1-creating-new-github-repository">§1. Creating a New GitHub Repository</h2>  
 
-last -> [Git Branching Policy](#inlineId:git-branching-policy)
-
-----
-
-1. Create the repo on GitHub
+> --- 
+1. Create the repo on GitHub  
 
 >- Go to GitHub → New Repository
 >- Name it (e.g., documentation-system)
@@ -19,19 +21,19 @@ last -> [Git Branching Policy](#inlineId:git-branching-policy)
 
 2. In your local project folder
 
->- Open a terminal inside the project root:
-    ```bash
-    git init
-    git add .
-    git commit -m "Initial commit"
-    ```
+>- Open a terminal inside the project root:  
+```bash
+        git init
+        git add .
+        git commit -m "Initial commit"
+```
 
 3. Connect your local repo to GitHub
 
->- Copy the repo URL from GitHub (HTTPS or SSH):
-    ```bash
-    git remote add origin https://github.com/<username>/<repo>.git
-    ```
+>- Copy the repo URL from GitHub (HTTPS or SSH):  
+```bash
+        git remote add origin https://github.com/<username>/<repo>.git
+```
 
 4. Push it
 ```bash
@@ -100,9 +102,9 @@ That’s it — app is now live on GitHub.
 
 >> This is a common pattern for sharing workspace settings without leaking personal editor clutter.
 
-> ***How to double-check locally*** 
+> ***How to double-check locally***  
 ```bash
-    git status --ignored
+      git status --ignored
 ```
 
 2. External Code Attribution
@@ -110,7 +112,7 @@ That’s it — app is now live on GitHub.
 >1. Full Files
 
 >> When an entire file originates from another author (with or without modifications), <u>include this header at the top of the file</u>:
-```ts
+```typescript
         /**
          * Original work by: <Author Name>
          * Source: <URL>
@@ -123,7 +125,7 @@ That’s it — app is now live on GitHub.
 
 >> When only a function or small block is reused, <u>place this comment directly above it</u>>:
 
-```ts
+```typescript
         // Based on an implementation by <Author Name> (<License Name>)
         // Source: <URL>
 ```
@@ -132,7 +134,7 @@ That’s it — app is now live on GitHub.
 
 >> When the idea came from external work but the implementation is original:
 
-```ts
+```typescript
         // Inspired by an approach from <Author Name>
         // Source: <URL>
 ```
@@ -141,17 +143,19 @@ That’s it — app is now live on GitHub.
 
 >> If multiple external sources are used, they may also be listed in a Credits section:
 
-```Code
-        ## Credits
-        This project includes or adapts code from the following sources:
+```
+          ## Credits
+          This project includes or adapts code from the following sources:
 
-        - <\ Author Name >\ - <\Project Name>\  
-          License: <\License Name>\  
-          Source: <\URL>\
+            - &lt;Author Name&gt; - &lt;Project Name&gt;  
+            License: &lt;License Name&gt;  
+            Source: &lt;URL&gt;
 
-        - <\Author Name>\ — <\Project Name>\
-          License: <\License Name>\
-          Source: <\URL>\
+            - &lt;Author Name&gt; - &lt;Project Name&gt;  
+            License: &lt;License Name&gt;  
+            Source: &lt;URL&gt;
+
+            ...
 ```
 
 >5. License Preservation
@@ -163,15 +167,13 @@ That’s it — app is now live on GitHub.
 >>- Do not remove or alter required notices
 >>- Add a NOTICE file if the license requires it (e.g., Apache 2.0)
 
-
 ---
-<h2 id="git-workflow">🌿 Git Workflow</h2>
 
-previous ->  [Creating a New GitHub Repository](#inlineId:creating-new-github-repository)
+**[previous section][1st] &emsp; [next section][3rd]**
 
-next ->  [Git Branching Policy](#inlineId:git-branching-policy)
+<h2 id="2-daily-workflow">§2. Daily Workflow</h2>
 
-----
+> ----
 
 |Step |Action	                  |Purpose                   |
 |:----|:------------------------|:-------------------------|
@@ -218,11 +220,11 @@ next ->  [Git Branching Policy](#inlineId:git-branching-policy)
 >- Open the Source Control panel:
 >- Stage only the files (click the + next to each file or next to Changes)
 >- Write a clear commit message, and typcal message format:
-```Code
+```
         type(scope): short description
 ```
 >> Examples:
-```Code
+```
         feat(scroll): implement scroll restoration
         fix(renderer): resolve KaTeX wrapping issue
         docs(adr): add print-mode architecture ADR
@@ -275,7 +277,7 @@ next ->  [Git Branching Policy](#inlineId:git-branching-policy)
 
 > ***Purpose: keeps the repository tidy and ensures the local environment stayes with the remote.***
 
----
+> ---
 
 ```mermaid
 ---
@@ -298,8 +300,7 @@ flowchart TD
     M --> N([Workflow complete])
 
 ```
-
----
+> ---
 
 ```mermaid
 ---
@@ -347,7 +348,7 @@ sequenceDiagram
 
 ```
 
----
+> ---
 
 ```mermaid
 ---
@@ -376,29 +377,27 @@ stateDiagram-v2
 ```
 ----
 
-<h2 id="git-branching-policy">🌿 Git Branching Policy</h2>
+**[previous section][2nd] &emsp; [first section][1st]**
 
-top -> [Creating a New GitHub Repository](#inlineId:creating-new-github-repository)
+<h2 id="3-git-branching-policy">§3. Git Branching Policy</h2>  
 
-previous -> [Git Workflow](#inlineId:git-workflow)
+> ----
 
-----
-
-This repository follows a lightweight, contributor‑friendly branching strategy designed to keep development fast, isolated, and easy to review. All work happens in short‑lived branches, and every change enters the codebase through a pull request.
+> This repository follows a lightweight, contributor‑friendly branching strategy designed to keep development fast, isolated, and easy to review. All work happens in short‑lived branches, and every change enters the codebase through a pull request.
 
 1. Main Branches
 
-> main
+> main:
 
-- Always stable and deployable
-- POnly updated through pull requests
-- Represents the latest production‑ready state
+>- Always stable and deployable
+>- POnly updated through pull requests
+>- Represents the latest production‑ready state
 
-> develop (optional; use only if multiple contributors work in parallel)
+> develop (optional; use only if multiple contributors work in parallel):
 
-- Integration branch for upcoming releases
-- Features merge here before being promoted to main
-- CI runs full test suite on every merge
+>- Integration branch for upcoming releases
+>- Features merge here before being promoted to main
+>- CI runs full test suite on every merge
 
 > If the project is small or you prefer simplicity, skip develop and merge feature branches directly into main.
 
@@ -420,7 +419,8 @@ This repository follows a lightweight, contributor‑friendly branching strategy
 >>- Push if you want to share or back up your work
 >>- Merge only if the experiment becomes a real feature
 >>- Otherwise, delete the branch when done
->>> ***This keeps the main history clean while supporting exploration.***
+
+>> ***This keeps the main history clean while supporting exploration.***
 
 > Rules for Working Branches:
 
@@ -441,7 +441,8 @@ This repository follows a lightweight, contributor‑friendly branching strategy
 >7. Delete the branch after merge
 
 > Note: ***Pull requests should be small, focused, and easy to review. Large changes should be split into multiple branches.***
-----
+
+> ----
 
 ```mermaid
 ---
