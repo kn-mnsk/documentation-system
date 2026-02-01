@@ -40,47 +40,15 @@ export class RenderService {
         return `<div class="mermaid-container"><pre class="mermaid">${token.text}</pre></div>`;
       }
 
-      if (language === "bash") {
-        // Wrap Bash code blocks in a div
-        return `<pre class="bash">${token.text}</pre>`;
-      }
-
-      if (language === "ts" || language === "typescript") {
-        // Wrap Bash code blocks in a
-        // console.log(`Log: MarkService language=typescript ,raw text=`, (token.raw));
-        return `<pre name="typescript" class="typescript">${token.text}</pre>`;
-      }
-
-      if (language === "code" || language === "Code") {
-        // Wrap Bash code blocks in a div
-        return `<pre class="code">${token.text}</pre>`;
-      }
-
       if (language === "folder" ) {
         // Wrap Bash code blocks in a div
         return `<div class="folder-container">
-        <pre class="folder">${token.text}</pre></div>`;
+        <pre class="folder"><code>${token.text}<code></pre></div>`;
       }
 
       return `<pre><code class="language-${language}">${token.text}</code></pre>`;
 
     },
-
-    // table(table: Tokens.Table): string {
-    //   // console.log(`Debug: table`, JSON.stringify(table));
-    //   const header = table.header
-    //     .map(value => `<th>${value.text}</th>`)
-    //     .join('');
-    //   const body = table.rows
-    //     .map(value => `<tr>${value.map(value => `<td>${value.text}</td>`).join('')}</tr>`)
-    //     .join('');
-
-    //   const content = `<table class="md-table"><thead><tr>${header}</tr></thead><tbody>${body}</tbody></table>`;
-
-    //   // console.log(`Debug: table content= ${content}`);
-
-    //   return content;
-    // },
 
     table(token: Tokens.Table) {
       const table = document.createElement('table');
@@ -95,7 +63,6 @@ export class RenderService {
       table.append(thead);
 
       if (token.rows.length === 0) {
-        // return table;
         return table.outerHTML;
       }
 
@@ -108,13 +75,10 @@ export class RenderService {
           cell.append(this.tablecell(row[k]));
         }
 
-        // tbody.append(this.tablerow({ token.text: cell }));
         tbody.append(this.tablerow(cell));
       }
 
       table.append(tbody);
-
-      // return table.outerHTML;
 
       const div = document.createElement('div');
       div.className = "md-table-container";
@@ -135,18 +99,16 @@ export class RenderService {
       // console.log(`Log: RederService renderer tablecell content=`, content);
 
       const cell = document.createElement(token.header ? 'th' : 'td');
-      // const div = document.createElement('div');
-      // div.innerHTML = content;
-      // cell.append(div);
+
       cell.innerHTML = content;
-      // cell.append(content);
+
       if (token.align) {
         cell.setAttribute('align', token.align);
       }
       // console.log(`Log: RederService renderer tablecell`, out);
 
       return cell;
-      // return cell;
+
     },
 
   }
@@ -260,9 +222,7 @@ export class RenderService {
   // Marked Initialization
   //--------------------------
   private initializeMarked(): void {
-    // if (this.marked) return;
-
-    // this.marked = new Marked();
+  
     marked.use(
       // this.marked.use(
       {

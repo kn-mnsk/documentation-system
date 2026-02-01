@@ -1,14 +1,18 @@
-Application README (ID: APPREADME)
+[1st]:#inlineId:1-folder-structure "§1. Folder Structure(Main Part Only)"
+[2nd]:#inlineId:2-key-features "§2. Key Features"
+[3rd]:#inlineId:3-architecture-diagram "§3. Architecture Diagram"
+
+Application README (ID: application-readme)
 =============================
 ---
 __This document is the master reference for the entire documentation rendering system. It explains how Markdown is parsed, enhanced, rendered to html, and synchronized with user navigation.__
 
 ---
+**[last section][3rd] &emsp; [next section][2nd]**  
 <!-- ## 1. Folder Structure(Main Part Only) [next > 2. Key Features](#inlineId:2-key-features) -->
-<h2 id="1-folder-structure"> 1. Folder Structure(Main Part Only)</h2>
+<h2 id="1-folder-structure">§1. Folder Structure(Main Part Only)</h2>
 
-[next > 2. Key Features](#inlineId:2-key-features)
-
+> ----
 > The Docs-Vierwer folder contains the documentation viewer and the Markdown rendering pipeline used throughout the project. It includes the viewer component, the renderer service, enhancement logic, lifecycle coordination, and documentation.
 
 ```folder
@@ -51,16 +55,14 @@ app/
 └── app.ts
 
 ```
+
 [(*1) See DocsList in th the docs-meta.ts](#docId:docs-meta)
 
-
 --- 
-<!-- ## 2. Key Features -->
+**[previous section][1st] &emsp; [next section][3rd]**  
+<h2 id="2-key-features">§2. Key Features</h2>
 
-<h2 id="2-key-features">2. Key Features</h2>
-
-[back < 1. Folder Structute](#inlineId:1-folder-structure) &ensp; &ensp; &ensp;[next > 3. Architecture Diagram](#inlineId:3-architecture-diagram)
-
+> ---
 > This is the markdown documentation system, which complies with Katex  and Mermaid renderings. Therefore a user views the most recentlty updated markdown file while editting it, through the browser refersh recovery management.
 The system is designed to follow a clear async pipeline that ensures stable layout, correct scroll restoration, and accurate anchor navigation.
     
@@ -202,10 +204,10 @@ Mermaid injects SVGs, KaTeX replaces nodes, syntax highlighting queues microtask
 >>7. If App was active → show App screen
 
 ---
-<h2 id="3-architecture-diagram">Architecture Diagram</h2>
+**[previous section][2nd] &emsp; [first section][1st]**  
+<h2 id="3-architecture-diagram">§3. Architecture Diagram</h2>
 
-[back < 2. Key Features](#inlineId:2-key-features) &ensp; &ensp; &ensp;[top > 1. Folder Structure](#inlineId:1-folder-structure)
-
+> ---
 <div class="align-center7">
 <strong>What This Diagram Shows:</strong>
 
@@ -427,6 +429,3 @@ flowchart TD
     Scroll_DV_Listener --> write_SS
 
 ```
-
-
-

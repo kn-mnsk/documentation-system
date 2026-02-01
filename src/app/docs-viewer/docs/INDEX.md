@@ -1,25 +1,26 @@
-Index (ID: Index)
+Index (ID: index)
 =================
+
 ---
 
 Angular README
 --------------
 
-__This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.0.__
+> _This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.0. ..._
 
->[**details**](#docId:angularreadme)
+> [details](#docId:angular-readme)
 
 Application README
 ------------------
 
-__This document is the master reference for the entire documentation rendering system. It explains how Markdown is parsed, enhanced, rendered to html, and synchronized with user navigation.__
+> _This document is the master reference for the entire documentation rendering system. It explains how Markdown is parsed, enhanced, rendered to html, and synchronized with user navigation. ..._
 
 
->[**details**](#docId:appreadme)
+> [details](#docId:application-readme)
 
 
 GitHub README
 -------------
->1. [GitHub Workflow](#docId:doc50-github-0100)
+> [details](#docId:github-readme)
 
 
