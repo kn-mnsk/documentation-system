@@ -1,8 +1,9 @@
 import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Tokens, Tokenizer, Marked, Renderer, MarkedOptions, Parser, marked, parser, lexer, parse } from 'marked';
+import { Tokenizer, Marked } from 'marked';
 import { Observable } from 'rxjs';
-// import mermaid from 'mermaid';
+
+import { renderer, } from './marked.renderer';
 
 import { KatexService } from './katex.service';
 import { MermaidService } from './mermaid.service';
@@ -17,101 +18,7 @@ export class RenderService {
 
   //Reference: https://marked.js.org/using_advanced
 
-  // private marked: Marked | null = null;
-
-  /**
-   * Custom renderer for Markdown → HTML.
-   * Handles code blocks (Mermaid, Bash, generic) and tables.
-   */
-
-  // Base on an implementation by @markedjs (MIT License)
-  // Source: https://github.com/UziTech/marked-html-renderer/blob/main/src/renderer.ts#L42
-  private renderer: any = {
-
-    options: null as unknown as MarkedOptions<DocumentFragment, Node | string>,
-    parser: null as unknown as Parser<DocumentFragment, Node | string>,
-
-    code(token: Tokens.Code): string {
-      const language = token.lang || "plaintext"; // Default to plaintext if no language is provided
-
-      // Wrap the folowings blocks in a div
-      if (language === "mermaid") {
-        // console.log(`Log MarkdownRenderService render code() langauge=`, language, token.text);
-        return `<div class="mermaid-container"><pre class="mermaid">${token.text}</pre></div>`;
-      }
-
-      if (language === "folder" ) {
-        // Wrap Bash code blocks in a div
-        return `<div class="folder-container">
-        <pre class="folder"><code>${token.text}<code></pre></div>`;
-      }
-
-      return `<pre><code class="language-${language}">${token.text}</code></pre>`;
-
-    },
-
-    table(token: Tokens.Table) {
-      const table = document.createElement('table');
-      table.className = "md-table"
-      const thead = document.createElement('thead');
-
-      const headerCell = document.createDocumentFragment();
-      for (let j = 0; j < token.header.length; j++) {
-        headerCell.append(this.tablecell(token.header[j]));
-      }
-      thead.append(this.tablerow(headerCell));
-      table.append(thead);
-
-      if (token.rows.length === 0) {
-        return table.outerHTML;
-      }
-
-      const tbody = document.createElement('tbody');
-      for (let j = 0; j < token.rows.length; j++) {
-        const row = token.rows[j];
-
-        const cell = document.createDocumentFragment();
-        for (let k = 0; k < row.length; k++) {
-          cell.append(this.tablecell(row[k]));
-        }
-
-        tbody.append(this.tablerow(cell));
-      }
-
-      table.append(tbody);
-
-      const div = document.createElement('div');
-      div.className = "md-table-container";
-      div.append(table);
-      return div.outerHTML;
-    },
-
-    tablerow(text: any) {
-      const tr = document.createElement('tr');
-      tr.append(text);
-      return tr;
-    },
-
-    tablecell(token: Tokens.TableCell) {
-
-      const content = this.parser.parseInline(token.tokens);
-
-      // console.log(`Log: RederService renderer tablecell content=`, content);
-
-      const cell = document.createElement(token.header ? 'th' : 'td');
-
-      cell.innerHTML = content;
-
-      if (token.align) {
-        cell.setAttribute('align', token.align);
-      }
-      // console.log(`Log: RederService renderer tablecell`, out);
-
-      return cell;
-
-    },
-
-  }
+  private marked: Marked | null = null;
 
   constructor(
     private http: HttpClient,
@@ -147,8 +54,7 @@ export class RenderService {
   ): Promise<void> {
 
     // 1. Markdown -> html
-    const html = marked.parse(markdown) as string;
-    // const html = this.marked?.parse(markdown) as string;
+    const html = this.marked?.parse(markdown) as string;
     viewer.innerHTML = html;
     // console.log(`Log: ${this.$title()} renderMarkdownToDOM html=`, html);
 
@@ -222,39 +128,23 @@ export class RenderService {
   // Marked Initialization
   //--------------------------
   private initializeMarked(): void {
-  
-    marked.use(
-      // this.marked.use(
+
+    if (!this.marked) {
+      this.marked = new Marked()
+    }
+
+    this.marked.use(
       {
         async: false,
         breaks: false,
         gfm: true,
         pedantic: false,
-        renderer: this.renderer,
+        renderer: renderer,
         silent: false,
         tokenizer: new Tokenizer(),
         walkTokens: null
-      },
-      {
-        extensions: [{
-          name: 'typescript',
-          renderer(token) {
-            console.log('Log: marked extension', token.raw);
-            return `<pre class="typescript">NONE</pre>`;
-          }
-        }]
       }
     );
-
-    // this.marked.use({
-    //   extensions: [{
-    //     name: 'typescript',
-    //     renderer(token) {
-    //       console.log('Log: marked extension', token.raw);
-    //       return `<pre class="typescript">${token.raw}</pre>`;
-    //     }
-    //   }]
-    // });
 
   }
 
