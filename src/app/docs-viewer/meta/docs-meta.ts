@@ -70,6 +70,12 @@ export const DocsList: DocMeta[] = [
     "filetype": "md",
     "path": "app/docs-viewer/docs/supplements/doc10-app-0110.md",
   },
+  {
+    "id": "marked-supplement",
+    "title": "Supplemental Docs of 'Marked'",
+    "filetype": "md",
+    "path": "app/docs-viewer/docs/supplements/marked.md",
+  },
   // TypeScript
   {
     "id": "docs-meta",

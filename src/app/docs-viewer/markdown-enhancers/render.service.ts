@@ -1,9 +1,10 @@
 import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Tokenizer, Marked } from 'marked';
+import { Marked, Tokenizer } from 'marked';
+// import { Tokenizer, Marked } from 'marked';
 import { Observable } from 'rxjs';
 
-import { renderer } from './marked.renderer';
+import { markedRenderer, markedExtensionStandard } from './marked.renderer';
 
 import { KatexService } from './katex.service';
 import { MermaidService } from './mermaid.service';
@@ -135,18 +136,21 @@ export class RenderService {
 
     }
 
-    this.marked.use(
-      {
-        async: false,
-        breaks: false,
-        gfm: true,
-        pedantic: false,
-        renderer: renderer,
-        silent: false,
-        tokenizer: new Tokenizer(),
-        walkTokens: null
-      }
-    );
+    // this.marked.use(
+    //   {
+    //     async: false,
+    //     breaks: false,
+    //     gfm: true,
+    //     pedantic: false,
+    //     renderer: markedRenderer,
+    //     silent: false,
+    //     tokenizer: new Tokenizer(),
+    //     walkTokens: null
+    //   }
+    // );
+
+    this.marked.use(markedExtensionStandard);
+
 
   }
 

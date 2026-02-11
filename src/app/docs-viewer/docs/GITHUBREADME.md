@@ -176,7 +176,7 @@ That’s it — app is now live on GitHub.
 > ----
 
 |Step |Action	                  |Purpose                   |
-|:----|:------------------------|:-------------------------|
+|:---:|:------------------------|:-------------------------|
 |1	| Start on main	| Ensure local repo macthes GitHub:<br>&emsp; • Switch to main<br>&emsp; • Pull latest changes|
 |2	| Create a task branch	| Isolate work and keep history clean:<br>&emsp; • Create new branch: feature/..., fix/..., docs/...<br>&emsp; • Publish the branch |
 |3	| Make focused changes	| Avoid mixing unrelated changes:<br>&emsp; • Edit only files related to the task|

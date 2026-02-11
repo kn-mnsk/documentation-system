@@ -1,13 +1,13 @@
 // Base on an implementation by @markedjs (MIT License)
 // Source: https://github.com/UziTech/marked-html-renderer/blob/main/src/renderer.ts#L42
 
-import type { MarkedOptions, Parser, Tokens } from 'marked';
+import { MarkedOptions, MarkedExtension, Tokenizer, Parser, Tokens } from 'marked';
 
 /**
  * Custom renderer for Markdown → HTML.
  * Handles code blocks (Mermaid, Bash, generic) and tables.
  */
-export const renderer: any = {
+export const markedRenderer: any = {
 
   options: null as unknown as MarkedOptions<string, Node | string>,
   parser: null as unknown as Parser<string, Node | string>,
@@ -111,3 +111,13 @@ export const renderer: any = {
 
 }
 
+export const markedExtensionStandard: MarkedExtension<string, Node | string> = {
+  async: false,
+  breaks: false,
+  gfm: true,
+  pedantic: false,
+  renderer: markedRenderer,
+  silent: false,
+  tokenizer: new Tokenizer(),
+  walkTokens: null
+}
