@@ -44,7 +44,8 @@ export class DocsViewer implements OnInit, AfterViewInit, OnDestroy {
   private clickHandler = this.onClick.bind(this);
   private scrollHandler = this.onScroll.bind(this);
 
-  @ViewChild('markdownViewer', { static: true }) markdownViewer!: ElementRef<HTMLElement>;
+  @ViewChild('markdownViewer', { static: true }) markdownViewer!: ElementRef<Element>;
+  // @ViewChild('markdownViewer', { static: true }) markdownViewer!: ElementRef<HTMLElement>;
 
   private internalLinks: NodeListOf<Element> | null = null;
 
@@ -152,6 +153,7 @@ export class DocsViewer implements OnInit, AfterViewInit, OnDestroy {
       console.error(`Error ${this.$title()} : class="markdownViewer" not found`); return;
     }
 
+    // if (!this.$isBrowser()) return;
     // console.log(`Log: ${this.$title()} loadAndRenderMarkdown viewer=`, viewer);
 
     const docMeta = this.docsRegistry.get(docId);
@@ -159,7 +161,7 @@ export class DocsViewer implements OnInit, AfterViewInit, OnDestroy {
     if (!docPath) {
       console.warn(`Warn ${this.$title()} : not found`, docId);
       viewer.innerHTML = `<p><em>Documentation not found. url=${docPath}</em></p>`;
-  
+
       return;
     };
 
@@ -283,7 +285,9 @@ export class DocsViewer implements OnInit, AfterViewInit, OnDestroy {
 
         // scroll to inlineRef
         this.scrollService.scrollToElementInViewer(
-          this.markdownViewer.nativeElement, inlineRef,
+          this.markdownViewer.nativeElement,
+          // this.markdownViewer.nativeElement,
+          inlineRef,
           "smooth",
           "center"
         );

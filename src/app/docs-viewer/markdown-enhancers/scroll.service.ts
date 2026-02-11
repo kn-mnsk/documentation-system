@@ -41,7 +41,8 @@ export class ScrollService {
  * @returns
  */
 scrollToElementInViewer(
-  viewer: HTMLElement,
+  viewer: Element,
+  // viewer: HTMLElement,
   element: HTMLElement,
   behavior: ScrollBehavior = "smooth",
   align: "top" | "center" = "top"
