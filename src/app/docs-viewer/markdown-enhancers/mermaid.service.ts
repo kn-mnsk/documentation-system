@@ -28,7 +28,7 @@ const mermaidConfigDarkTheme: MermaidConfig = {
     clusterBkg: '#2d3748',
     clusterBorder: '#63b3ed'
   },
-  flowchart: { htmlLabels: true, curve: 'linear' }
+  // flowchart: { htmlLabels: true, curve: 'linear' }
 };
 
 const mermaidConfigLightTheme: MermaidConfig = {
@@ -51,7 +51,7 @@ const mermaidConfigLightTheme: MermaidConfig = {
     clusterBkg: '#edf2f7',
     clusterBorder: '#3182ce'
   },
-  flowchart: { htmlLabels: true, curve: 'basis' }
+  // flowchart: { htmlLabels: true, curve: 'basis' }
 };
 
 
