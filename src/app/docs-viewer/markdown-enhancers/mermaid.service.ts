@@ -101,6 +101,7 @@ export class MermaidService {
     // Select only Mermaid source blocks (not already rendered)
     const mermaidBlocks = Array.from(
       container.querySelectorAll<HTMLElement>('.mermaid')
+      // container.querySelectorAll<HTMLElement>('.mermaid')
     ).filter(el => !el.classList.contains('mermaid-rendered')) as ArrayLike<HTMLElement>;
 
     if (mermaidBlocks.length === 0) return;

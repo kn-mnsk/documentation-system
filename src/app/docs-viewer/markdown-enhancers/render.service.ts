@@ -3,7 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Tokenizer, Marked } from 'marked';
 import { Observable } from 'rxjs';
 
-import { renderer, } from './marked.renderer';
+import { renderer, htmlRenderer, escapeText, cleanUrl } from './marked.renderer';
+import { DomMarkdownRenderer } from './dom.markdown.renderer';
 
 import { KatexService } from './katex.service';
 import { MermaidService } from './mermaid.service';
@@ -19,6 +20,8 @@ export class RenderService {
   //Reference: https://marked.js.org/using_advanced
 
   private marked: Marked | null = null;
+  private htmlMarked: Marked<DocumentFragment, Node  | string> | null = null;
+  // private htmlMarked: Marked<DocumentFragment, Node | string> | null = null;
 
   constructor(
     private http: HttpClient,
@@ -49,33 +52,56 @@ export class RenderService {
   async renderMarkdownToDOM(
     markdown: string,
     filetype: string | undefined,
-    viewer: HTMLElement,
+    viewer: Element,
+    // viewer: HTMLElement,
     isDarkMode: boolean
   ): Promise<void> {
 
     // 1. Markdown -> html
-    const html = this.marked?.parse(markdown) as string;
-    viewer.innerHTML = html;
-    // console.log(`Log: ${this.$title()} renderMarkdownToDOM html=`, html);
+    const htmlString = this.marked!.parse(markdown, {async: false});
+    viewer.innerHTML = htmlString;
+
+
+    // const htmlElement = document.querySelector(".markdownViewer");
+    // const frag = this.htmlMarked!.parse(markdown, { async: false });
+
+    // console.log(`Log: ${this.$title()} renderMarkdownToDOM documentFragment=`, frag);
+
+    // console.log("frag =", frag);
+    // console.log("isNode =", frag instanceof Node);
+    // console.log("isFragment =", frag instanceof DocumentFragment);
+    // console.log("typeof frag =", typeof frag);
+
+
+    // viewer.innerHTML = '';
+    // viewer.appendChild(frag);
+
+    // documentFragment.then(frag => { viewer.appendChild(frag) })
+    const div = document.createElement("div");
+    // div.appendChild(documentFragment.cloneNode(true));
+    // // div.append(documentFragment);
+    // viewer.appendChild(div);
+    // viewer = htmlElement as HTMLElement;
 
     // 2. Sanitize text nodes (replace non-breaking spaces)
     sanitizeNodeText(viewer);
+
     if (filetype !== "ts") {
       // 3. Render KaTeX math expressions
-      this.katexService.renderMath(viewer);
+      this.katexService.renderMath(viewer as HTMLElement);
 
       // 4. Apply Mermaid theme
       this.mermaidService.applyMermaidTheme(isDarkMode);
 
       // 5. Wait for DOM + CSS + fonts + transitions
-      await this.waitForViewerToSettle(viewer);;
+      // await this.waitForViewerToSettle(viewer);;
 
       // 6. Render Mermaid diagrams
-      await this.mermaidService.renderMermaidBlocks(viewer);
+      await this.mermaidService.renderMermaidBlocks(viewer as HTMLElement);
     }
 
     // 7. Wait again for Mermaid’s own layout changes
-    await this.waitForViewerToSettle(viewer);
+    // await this.waitForViewerToSettle(viewer);
 
     // force layout flush
     viewer.getBoundingClientRect();
@@ -130,7 +156,7 @@ export class RenderService {
   private initializeMarked(): void {
 
     if (!this.marked) {
-      this.marked = new Marked()
+      this.marked = new Marked<string, string>()
     }
 
     this.marked.use(
@@ -140,6 +166,24 @@ export class RenderService {
         gfm: true,
         pedantic: false,
         renderer: renderer,
+        silent: false,
+        tokenizer: new Tokenizer(),
+        walkTokens: null
+      }
+    );
+
+    if (!this.htmlMarked) {
+      this.htmlMarked = new Marked<DocumentFragment, Node  | string>();
+      // this.htmlMarked = new Marked<DocumentFragment, Node | string>();
+    }
+    this.htmlMarked.use(
+      {
+        async: false,
+        breaks: false,
+        gfm: true,
+        pedantic: false,
+        renderer: htmlRenderer,
+        // renderer: htmlRenderer,
         silent: false,
         tokenizer: new Tokenizer(),
         walkTokens: null

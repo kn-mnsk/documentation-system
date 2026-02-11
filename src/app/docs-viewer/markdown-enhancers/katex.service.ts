@@ -23,6 +23,7 @@ export class KatexService {
   constructor() { }
 
   renderMath(container: HTMLElement): void {
+  // renderMath(container: HTMLElement): void {
 
     this.loadKaTeX().subscribe(() => {
       renderMathInElement(container, {
