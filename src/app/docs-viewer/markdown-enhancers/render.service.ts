@@ -1,10 +1,8 @@
 import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Marked, Tokenizer } from 'marked';
-// import { Tokenizer, Marked } from 'marked';
 import { Observable } from 'rxjs';
 
-import { markedRenderer, markedExtensionStandard } from './marked.renderer';
+import { markedString, markedExtensionStringRenderer, markedHtml, markedExtensionHtmlRnderer} from './marked.renderer';
 
 import { KatexService } from './katex.service';
 import { MermaidService } from './mermaid.service';
@@ -19,7 +17,7 @@ export class RenderService {
 
   //Reference: https://marked.js.org/using_advanced
 
-  private marked: Marked<string, Node | string> | null = null;
+  private marked: any | null = null;
 
   constructor(
     private http: HttpClient,
@@ -131,26 +129,19 @@ export class RenderService {
   //--------------------------
   private initializeMarked(): void {
 
-    if (!this.marked) {
-      this.marked = new Marked<string, Node | string>()
+    if (false) {
+      if (!this.marked) {
+        this.marked = markedString;
+      }
 
+      this.marked.use(markedExtensionStringRenderer);
+    } else{
+        if (!this.marked) {
+        this.marked = markedHtml;
+      }
+
+      this.marked.use(markedExtensionHtmlRnderer);
     }
-
-    // this.marked.use(
-    //   {
-    //     async: false,
-    //     breaks: false,
-    //     gfm: true,
-    //     pedantic: false,
-    //     renderer: markedRenderer,
-    //     silent: false,
-    //     tokenizer: new Tokenizer(),
-    //     walkTokens: null
-    //   }
-    // );
-
-    this.marked.use(markedExtensionStandard);
-
 
   }
 
