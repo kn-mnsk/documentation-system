@@ -172,25 +172,25 @@ const markedHtmlRenderer: Renderer<DocumentFragment, Node | string> = {
 
   code(token: Tokens.Code) {
     const langString = token.lang || "plaintext"; // Default to plaintext if no language is provided
-    const divEl = document.createElement('div');
+
     const preEl = document.createElement('pre');
-    const codeEl = document.createElement('code');
-    codeEl.innerHTML = token.text;
 
     if (langString === 'mermaid' || langString === 'folder') {
+      const divEl = document.createElement('div');
       divEl.className = langString + '-container';
       preEl.className = langString;
       preEl.innerHTML = token.text;
       divEl.appendChild(preEl);
-
+      // console.log(`Log: marked.renderer.ts markedHtmlRenderer code=`, divEl);
       return divEl.outerHTML;
     }
 
+    const codeEl = document.createElement('code');
+    codeEl.innerHTML = token.text;
     codeEl.className = 'language-' + langString;
     preEl.appendChild(codeEl);
-    codeEl.innerHTML = token.text;
 
-    // console.log(`Log: marked.renderer.ts renderer code=`, divEl.innerText);
+    // console.log(`Log: marked.renderer.ts markedHtmlRenderer code=`, preEl);
     return preEl.outerHTML;
   },
 
@@ -208,15 +208,18 @@ const markedHtmlRenderer: Renderer<DocumentFragment, Node | string> = {
 
     // console.log(`Log: marked.renderer msrkedHtmlRendere html: `, token.text, comment);
     if (comment) {
-      return document.createComment(comment[1]);
+      // markdown comment: return '' to hide
+      return '';
+      // return document.createComment(comment[1]);
     }
     // If it is not just assume it is text.
     return token.text;
   },
 
-  def() {
-    return document.createDocumentFragment();
-    // return '';
+  def(token: Tokens.Def) {
+    // link definition: return '' to hide
+    // return document.createDocumentFragment();
+    return '';
   },
 
   heading(token: Tokens.Heading) {
@@ -249,7 +252,7 @@ const markedHtmlRenderer: Renderer<DocumentFragment, Node | string> = {
     return list.outerHTML;
   },
 
-  listitem(token: Tokens.ListItem ) {
+  listitem(token: Tokens.ListItem) {
     const item = document.createElement('li');
     const parsed = this.parser.parse(token.tokens);
     item.append(parsed);
@@ -360,13 +363,13 @@ const markedHtmlRenderer: Renderer<DocumentFragment, Node | string> = {
     return em.outerHTML;
   },
 
-  codespan({ text }) {
+  codespan(token: Tokens.Codespan) {
     const code = document.createElement('code');
-    code.innerHTML = escapeText(text, true);
-    return code;
+    code.innerHTML = escapeText(token.text, true);
+    return code.outerHTML;
   },
 
-  br() {
+  br(token: Tokens.Br) {
     return document.createElement('br');
   },
 

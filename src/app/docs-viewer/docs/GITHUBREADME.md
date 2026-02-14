@@ -11,6 +11,7 @@ GitHub README (ID: github-readme)
 <h2 id="1-creating-new-github-repository">§1. Creating a New GitHub Repository</h2>  
 
 > --- 
+
 1. Create the repo on GitHub  
 
 >- Go to GitHub → New Repository
@@ -21,25 +22,26 @@ GitHub README (ID: github-readme)
 
 2. In your local project folder
 
->- Open a terminal inside the project root:  
-```bash
-        git init
-        git add .
-        git commit -m "Initial commit"
-```
+>- Open a terminal inside the project root:
 
-3. Connect your local repo to GitHub
+>> `git init`
 
->- Copy the repo URL from GitHub (HTTPS or SSH):  
-```bash
-        git remote add origin https://github.com/<username>/<repo>.git
-```
+>> `git add`
+
+>> `git commit -m "Initial commit"`
+
+
+3. Connect your local repo to `GitHub` and Copy the repo URL from `GitHub (HTTPS or SSH)`:  
+
+> `git remote add origin https://github.com/<username>/<repo>.git`
+
 
 4. Push it
-```bash
-    git branch -M main
-    git push -u origin main
-```
+
+> `git branch -M main`
+
+> `git push -u origin main`
+
 
 That’s it — app is now live on GitHub.
 
@@ -102,10 +104,7 @@ That’s it — app is now live on GitHub.
 
 >> This is a common pattern for sharing workspace settings without leaking personal editor clutter.
 
-> ***How to double-check locally***  
-```bash
-      git status --ignored
-```
+> ***How to double-check locally:*** &emsp;`git status --ignored`
 
 2. External Code Attribution
 
@@ -114,20 +113,20 @@ That’s it — app is now live on GitHub.
 >> When an entire file originates from another author (with or without modifications), <u>include this header at the top of the file</u>:
 ```typescript
         /**
-         * Original work by: <Author Name>
-         * Source: <URL>
-         * License: <License Name>
-         * Notes: <Describe modifications or adaptation>
+         * Original work by: &lt;Author Name>
+         * Source: &lt;URL>
+         * License: &lt;License Name>
+         * Notes: &lt;Describe modifications or adaptation>
          */
 ```
 
 >2. Functions or Snippets
 
->> When only a function or small block is reused, <u>place this comment directly above it</u>>:
+>> When only a function or small block is reused, <u>place this comment directly above </u>>:
 
 ```typescript
-        // Based on an implementation by <Author Name> (<License Name>)
-        // Source: <URL>
+        // Based on an implementation by &lt;Author Name> (&lt;License Name>)
+        // Source: &lt;>URL>
 ```
 
 >3. Conceptual Inspiration
@@ -135,27 +134,31 @@ That’s it — app is now live on GitHub.
 >> When the idea came from external work but the implementation is original:
 
 ```typescript
-        // Inspired by an approach from <Author Name>
-        // Source: <URL>
+        // Inspired by an approach from &lt;Author Name>
+        // Source: &lt;URL>
 ```
 
 >4. Centralized Credits (Optional)
 
 >> If multiple external sources are used, they may also be listed in a Credits section:
 
-```
+```typescript
+
+          /*
           ## Credits
-          This project includes or adapts code from the following sources:
+           This project includes or adapts code from the following sources:
 
-            - &lt;Author Name&gt; - &lt;Project Name&gt;  
-            License: &lt;License Name&gt;  
-            Source: &lt;URL&gt;
+            - &lt;Author Name> - &lt;Project Name>  
+            License: &lt;License Name>  
+            Source: &lt;URL>
 
-            - &lt;Author Name&gt; - &lt;Project Name&gt;  
-            License: &lt;License Name&gt;  
-            Source: &lt;URL&gt;
+            - &lt;Author Name> - &lt;Project Name>;  
+            License: &lt;License Name>  
+            Source: &lt;URL>
 
             ...
+          */
+
 ```
 
 >5. License Preservation
@@ -178,9 +181,9 @@ That’s it — app is now live on GitHub.
 |Step |Action	                  |Purpose                   |
 |:---:|:------------------------|:-------------------------|
 |1	| Start on main	| Ensure local repo macthes GitHub:<br>&emsp; • Switch to main<br>&emsp; • Pull latest changes|
-|2	| Create a task branch	| Isolate work and keep history clean:<br>&emsp; • Create new branch: feature/..., fix/..., docs/...<br>&emsp; • Publish the branch |
+|2	| Create a task branch	| Isolate work and keep history clean:<br>&emsp; • Create new branch: `feature/..., fix/..., docs/...`<br>&emsp; • Publish the branch |
 |3	| Make focused changes	| Avoid mixing unrelated changes:<br>&emsp; • Edit only files related to the task|
-|4	| Commit cleanly 	| Maintain readable, reversible history:<br>&emsp; • Stage only relevant files<br>&emsp; • Commit using message format:<br>&emsp;&emsp; ```type(scope): short description```|
+|4	| Commit cleanly 	| Maintain readable, reversible history:<br>&emsp; • Stage only relevant files<br>&emsp; • Commit using message format:<br>&emsp;&emsp; `type(scope): short description`|
 |5	| Push the branch | Make your work visible on GitHub:<br>&emsp; • Publish branch (first push)<br>&emsp; • Push updates (later pushes)|
 |6	| Open a Pull Request(PR)	| Review and integrate work into main:<br>&emsp; • Compare & pull request<br>&emsp; • Describe what changed and why<br>&emsp; • Merge when ready  |
 |7	| Clean up	| Keep repo tidy and stay synced:<br>&emsp; • Delete branch on GitHub<br>&emsp; • Switch back to main<br>&emsp; • Pull latest changes|
@@ -220,15 +223,13 @@ That’s it — app is now live on GitHub.
 >- Open the Source Control panel:
 >- Stage only the files (click the + next to each file or next to Changes)
 >- Write a clear commit message, and typcal message format:
-```
-        type(scope): short description
-```
->> Examples:
-```
-        feat(scroll): implement scroll restoration
-        fix(renderer): resolve KaTeX wrapping issue
-        docs(adr): add print-mode architecture ADR
-```
+
+>> __`type(scope): short description`__
+
+>> __Examples:__
+>>- `feat(scroll): implement scroll restoration`
+>>- `fix(renderer): resolve KaTeX wrapping issue`
+>>- `docs(adr): add print-mode architecture ADR`
 
 >- Click ✔ Commit
 
@@ -238,17 +239,17 @@ That’s it — app is now live on GitHub.
 
 >- Click Publish Branch (for new branches), or Click the ↑ Push icon
 
-> ***Purpose: uploads the branch to GitHub so it becomes visible for review.***
+> ***Purpose: uploads the branch to `GitHub` so it becomes visible for review.***
 
-6. Verify branch on GitHub
+6. Verify branch on `GitHub`
 
->- On GitHub:
+>- On `GitHub`:
 
 >>- Open the repository
 >>- Go to the Branches tab
 >>- Confirm the branch appears alongside main
 
->- GitHub will show:
+>- `GitHub` will show:
 
 >>- “Compare & pull request”
 

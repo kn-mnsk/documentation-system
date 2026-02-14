@@ -7,7 +7,7 @@
 
 ```typescript
 Renderer: {
-    new (options?: MarkedOptions<ParserOutput, RendererOutput> | undefined): _Renderer<ParserOutput, RendererOutput>;
+    new (options?: MarkedOptions&lt;ParserOutput, RendererOutput> | undefined): _Renderer&lt;ParserOutput, RendererOutput>;
 };
 ```
 
@@ -31,7 +31,7 @@ Let’s break down the semantics:
 
 >---
 ```typescript
-    (options?: MarkedOptions<ParserOutput, RendererOutput> | undefined)
+    (options?: MarkedOptions&lt;ParserOutput, RendererOutput> | undefined)
 ```
 > **This means:** 
 >- The constructor takes zero or one argument. 
@@ -82,14 +82,14 @@ Let’s break down the semantics:
 > ---
 > Here’s a more explicit version:
 ```typescript
-      interface RendererConstructor<ParserOutput, RendererOutput> {
+      interface RendererConstructor&lt;ParserOutput, RendererOutput> {
         new (
-          options?: MarkedOptions<ParserOutput, RendererOutput>
-        ): _Renderer<ParserOutput, RendererOutput>;
+          options?: MarkedOptions&lt;ParserOutput, RendererOutput>
+        ): _Renderer&lt;ParserOutput, RendererOutput>;
       }
 
-      interface Something<ParserOutput, RendererOutput> {
-        Renderer: RendererConstructor<ParserOutput, RendererOutput>;
+      interface Something&lt;ParserOutput, RendererOutput> {
+        Renderer: RendererConstructor&lt;ParserOutput, RendererOutput>;
       }
 ```
 
@@ -97,8 +97,8 @@ Let’s break down the semantics:
 ```typescript
   Renderer: {
     new (
-      options?: MarkedOptions<ParserOutput, RendererOutput> | undefined
-    ): _Renderer<ParserOutput, RendererOutput>;
+      options?: MarkedOptions&lt;ParserOutput, RendererOutput> | undefined
+    ): _Renderer&lt;ParserOutput, RendererOutput>;
   };
 ```
 1. Renderer is a constructor type, not an instance
@@ -116,12 +116,12 @@ Let’s break down the semantics:
 
 >---
 > **The constructor accepts:**
-```code
-      options?: MarkedOptions<ParserOutput, RendererOutput>
+```typescript
+      options?: MarkedOptions&lt;ParserOutput, RendererOutput>
 ```
 > **This means:**
 >- The constructor is generic, but the generics are captured from the outer scope.
->- The options object is coupled to the same type parameters as the renderer instance.
+>- The options object is coupiled to the same type parameters as the renderer instance.
 
 > **Semantically:**
 >- The renderer factory is bound to a specific parser/renderer pipeline type.
@@ -132,7 +132,7 @@ Let’s break down the semantics:
 
 >---
 
-```ts
+```typescript
       _Renderer&lt;ParserOutput, RendererOutput>
 ```
 
@@ -149,9 +149,9 @@ Let’s break down the semantics:
 
 >---
 > **This is equivalent to:**
-```ts
-      interface RendererConstructor<PO, RO> {
-        new (options?: MarkedOptions<PO, RO>): _Renderer<PO, RO>;
+```typescript
+      interface RendererConstructor&lt;PO, RO> {
+        new (options?: MarkedOptions<PO, RO>): _Renderer&lt;PO, RO>;
       }
 ```
 > So your original snippet is shorthand for:
@@ -162,20 +162,20 @@ Let’s break down the semantics:
 
 > Here’s a clean, onboarding‑friendly semantic model:
 
-> **Renderer (constructor):** A factory that produces renderer instances.
-> **MarkedOptions:** Configuration for how the renderer behaves.
-> **_Renderer (instance):** The actual object that performs rendering.
-> **ParserOutput → RendererOutput:** The type‑level contract for the rendering pipeline.
+>- **Renderer (constructor):** A factory that produces renderer instances.
+>- **MarkedOptions:** Configuration for how the renderer behaves.
+>- **_Renderer (instance):** The actual object that performs rendering.
+>- **ParserOutput → RendererOutput:** The type‑level contract for the rendering pipeline.
 
 ## 4. Expanded Equivalent Form (Contributor‑Friendly)
-```ts
-    type RendererFactory<ParserOutput, RendererOutput> =
+```typescript
+    type RendererFactory&lt;ParserOutput, RendererOutput> =
       new (
-        options?: MarkedOptions<ParserOutput, RendererOutput>
-      ) => _Renderer<ParserOutput, RendererOutput>;
+        options?: MarkedOptions&lt;ParserOutput, RendererOutput>
+      ) => _Renderer&lt;ParserOutput, RendererOutput>;
 
-    interface MarkedEnvironment<ParserOutput, RendererOutput> {
-      Renderer: RendererFactory<ParserOutput, RendererOutput>;
+    interface MarkedEnvironment&lt;ParserOutput, RendererOutput> {
+      Renderer: RendererFactory&lt;ParserOutput, RendererOutput>;
     }
 ```
 > **This makes the semantics explicit:**
@@ -186,15 +186,15 @@ Let’s break down the semantics:
 ## 5. Visual Semantics (Flow Diagram)
 
 ```Code
-      ┌──────────────────────────────┐
-      │        Renderer (ctor)       │
-      │  new(options?) → instance    │
-      └──────────────┬───────────────┘
+      ┌─────────────────────────────┐
+      │        Renderer (ctor)      │
+      │  new(options?) → instance   │
+      └─────────────┬───────────────┘
                     │
                     │ constructs
                     ▼
       ┌──────────────────────────────┐
-      │   _Renderer<PO, RO>          │
+      │   _Renderer&lt;PO, RO>          │
       │  render(input: PO): RO       │
       └──────────────────────────────┘
       Where:
@@ -206,19 +206,19 @@ Let’s break down the semantics:
 > **This diagram captures the semantic relationship:** constructor → configured instance → rendering transformation
 
 ## 6. Semantics of the Marked Class
-```ts
-    export declare class Marked<
+```typesipt
+    export declare class Marked&lt;
       ParserOutput = string,
       RendererOutput = string
     > {
-      defaults: MarkedOptions<ParserOutput, RendererOutput>;
+      defaults: MarkedOptions&lt;ParserOutput, RendererOutput>;
 
-      options: (opt: MarkedOptions<ParserOutput, RendererOutput>) => this;
+      options: (opt: MarkedOptions&lt;ParserOutput, RendererOutput>) => this;
 
       parse: {
-        (src: string, options: MarkedOptions<ParserOutput, RendererOutput> & { async: true }): Promise<ParserOutput>;
-        (src: string, options: MarkedOptions<ParserOutput, RendererOutput> & { async: false }): ParserOutput;
-        (src: string, options?: MarkedOptions<ParserOutput, RendererOutput> | null): ParserOutput | Promise<ParserOutput>;
+        (src: string, options: MarkedOptions&lt;ParserOutput, RendererOutput> & { async: true }): Promise&lt;ParserOutput>;
+        (src: string, options: MarkedOptions&lt;ParserOutput, RendererOutput> & { async: false }): ParserOutput;
+        (src: string, options?: MarkedOptions&lt;ParserOutput, RendererOutput> | null): ParserOutput | Promise<ParserOutput>;
       };
     }
 ```

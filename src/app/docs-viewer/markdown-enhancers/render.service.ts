@@ -8,6 +8,7 @@ import { KatexService } from './katex.service';
 import { MermaidService } from './mermaid.service';
 
 import { sanitizeNodeText } from '../../global.utils/global.utils';
+import { Marked } from 'marked';
 
 @Injectable({ providedIn: 'root' })
 export class RenderService {
@@ -82,7 +83,7 @@ export class RenderService {
 
     // console.log(`Log: ${this.title()} \nrenderToElement() Finished `);
   }
-
+ 
   //-----------------------------------------------------
   // Layout Stabilization, mainly for mermaid rendering
   //-----------------------------------------------------
