@@ -194,6 +194,7 @@ const markedHtmlRenderer: Renderer<DocumentFragment, Node | string> = {
     return preEl.outerHTML;
   },
 
+  // update
   blockquote(token: Tokens.Blockquote) {
     const blockquote = document.createElement('blockquote');
     const parsed = this.parser.parse(token.tokens);
