@@ -19,9 +19,11 @@ Application README
 > [details](#docId:application-readme)
 
 
-GitHub README
+GitHub
 -------------
-> [details](#docId:github-readme)
+> [README](#docId:github-readme)
+
+> [Troubleshooting Guide](#docId:github-doc-0100)
 
 Supplmental DOcs for Marked
 -------

@@ -76,6 +76,12 @@ export const DocsList: DocMeta[] = [
     "filetype": "md",
     "path": "app/docs-viewer/docs/supplements/marked.md",
   },
+  {
+    "id": "github-doc-0100",
+    "title": "Github Troubleshooting Guide",
+    "filetype": "md",
+    "path": "app/docs-viewer/docs/supplements/github-doc-0100.md",
+  },
   // TypeScript
   {
     "id": "docs-meta",
