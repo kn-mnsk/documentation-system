@@ -23,17 +23,21 @@ app/
 ├── docs-viewer/
 │   │
 │   ├── docs/ (*1)
-│   │   ├── ANGULARREADME.md
-│   │   ├── APPREADME.md
 │   │   ├── supplements/
 │   │   │   ├── doc10-app-0110.md (DocsViewer Key Logic Diagram)
-│   │   │   └── doc10-app-0140.md (Browser Refresh Recovery Diagram)
+│   │   │   ├── doc10-app-0140.md (Browser Refresh Recovery Diagram)
+│   │   │   ├── github-doc-0100.md
+│   │   │   └── marked.md
+│   │   ├── ANGULARREADME.md
+│   │   ├── APPREADME.md
+│   │   ├── GITHUBREADME.md
 │   │   └── INDEX.md
 │   │
 │   ├── markdown-enhancers/
 │   │   ├── katex.service.ts
-│   │   ├── render.service.ts
+│   │   ├── marked.renderer.ts
 │   │   ├── mermaid.service.ts
+│   │   ├── render.service.ts
 │   │   └── scroll.service.ts
 │   │
 │   ├── meta/ 
