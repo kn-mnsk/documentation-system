@@ -71,10 +71,10 @@ export const DocsList: DocMeta[] = [
     "path": "app/docs-viewer/docs/supplements/doc10-app-0110.md",
   },
   {
-    "id": "marked-supplement",
+    "id": "doc-marked-0100",
     "title": "Supplemental Docs of 'Marked'",
     "filetype": "md",
-    "path": "app/docs-viewer/docs/supplements/marked.md",
+    "path": "app/docs-viewer/docs/supplements/doc-marked-0100.md",
   },
   {
     "id": "doc-marked-0200",
@@ -83,10 +83,10 @@ export const DocsList: DocMeta[] = [
     "path": "app/docs-viewer/docs/supplements/doc-marked-0200.md",
   },
   {
-    "id": "github-doc-0100",
+    "id": "doc-github-0100",
     "title": "Github Troubleshooting Guide",
     "filetype": "md",
-    "path": "app/docs-viewer/docs/supplements/github-doc-0100.md",
+    "path": "app/docs-viewer/docs/supplements/doc-github-0100.md",
   },
   // TypeScript
   {

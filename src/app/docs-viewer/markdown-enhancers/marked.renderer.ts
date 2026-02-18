@@ -98,7 +98,8 @@ const markedStringRenderer: any = {
 
     const cell = document.createElement(token.header ? 'th' : 'td');
 
-    cell.innerHTML = content;
+    cell.innerHTML = String(content);
+    // cell.innerHTML = content;
 
     if (token.align) {
       cell.setAttribute('align', token.align);
@@ -226,7 +227,9 @@ const markedHtmlRenderer: Renderer<DocumentFragment, Node | string> = {
   heading(token: Tokens.Heading) {
     // heading({ tokens, depth }) {
     const heading = document.createElement('h' + token.depth);
-    heading.append(this.parser.parseInline(token.tokens));
+    const parsed = this.parser.parseInline(token.tokens);
+    heading.innerHTML = String(parsed);
+    // heading.append(parsed);
     return heading.outerHTML;
   },
 
@@ -276,7 +279,7 @@ const markedHtmlRenderer: Renderer<DocumentFragment, Node | string> = {
   paragraph(token: Tokens.Paragraph) {
     const parsed = this.parser.parseInline(token.tokens)
     const paragraph = document.createElement('p');
-    paragraph.append(parsed);
+    // paragraph.append(parsed);
     paragraph.innerHTML = String(parsed);
     // console.log(`Log: marked.renderer markedHtmlRenderer paragraph:`, token.tokens, String(parsed), paragraph);
     return paragraph.outerHTML;
@@ -350,7 +353,7 @@ const markedHtmlRenderer: Renderer<DocumentFragment, Node | string> = {
   strong({ tokens }) {
     const parsed = this.parser.parseInline(tokens);
     const strong = document.createElement('strong');
-    strong.append(parsed);
+    // strong.append(parsed);
     strong.innerHTML = String(parsed);
     return strong.outerHTML;
   },
@@ -358,7 +361,7 @@ const markedHtmlRenderer: Renderer<DocumentFragment, Node | string> = {
   em(token: Tokens.Em) {
     const em = document.createElement('em');
     const parsed = this.parser.parseInline(token.tokens)
-    em.append(parsed);
+    // em.append(parsed);
     em.innerHTML = String(parsed);
     // console.log(`Log: marked.renderer em`, token.tokens, parsed, em.outerHTML);
     return em.outerHTML;
@@ -376,7 +379,9 @@ const markedHtmlRenderer: Renderer<DocumentFragment, Node | string> = {
 
   del({ tokens }) {
     const del = document.createElement('del');
-    del.append(this.parser.parseInline(tokens));
+    const parsed = this.parser.parseInline(tokens);
+    del.innerHTML = String(parsed);
+    // del.append(parsed);
     return del;
   },
 
@@ -388,7 +393,8 @@ const markedHtmlRenderer: Renderer<DocumentFragment, Node | string> = {
     if (token.title) {
       anchor.title = token.title;
     }
-    anchor.append(parsed);
+    anchor.innerHTML = String(parsed);
+    // anchor.append(parsed);
     // console.log(`Log: marked.renderer link: `, parsed, token.title, anchor);
     return anchor.outerHTML;
   },

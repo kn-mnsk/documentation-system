@@ -1037,3 +1037,404 @@ Throw an error if two packs define the same component.
     ERROR: "error"
   };
 ```
+
+### 10-2. Enhanced Component Registry with Conflict Logic
+
+```typescript
+  const componentRegistry = {};
+
+  export function registerComponent(name, config, policy) {
+    const exists = componentRegistry[name];
+
+    if (exists) {
+      switch (policy) {
+        case "override":
+          componentRegistry[name] = config;
+          return;
+
+        case "preserve":
+          return; // keep existing
+
+        case "error":
+          throw new Error(`Component "${name}" already exists in registry.`);
+      }
+    }
+
+    componentRegistry[name] = config;
+  }
+```
+
+This gives you deterministic behavior across packs.
+
+
+### 10-3. Plugin Pack Loader with Priority
+
+Each pack declares its conflict policy:
+
+```typescript
+  export function usePluginPack(pack) {
+    const policy = pack.conflictPolicy || "override";
+
+    // 1. Register components with conflict policy
+    for (const c of pack.components) {
+      registerComponent(c.name, c.config, policy);
+    }
+
+    // 2. Register tokenizer extensions
+    if (pack.extensions?.length) {
+      marked.use({ extensions: pack.extensions });
+    }
+
+    // 3. Register renderer overrides
+    if (pack.renderer) {
+      marked.use({ renderer: pack.renderer });
+    }
+}
+```
+
+### 10-4. Plugin Pack Definition Format
+
+```typescript
+  export function definePluginPack({
+    name,
+    components = [],
+    extensions = [],
+    renderer = {},
+    conflictPolicy = "override"
+  }) {
+    return { name, components, extensions, renderer, conflictPolicy };
+  }
+```
+
+Each pack is self‑describing and predictable.
+
+### 10-5. Example: Two Packs with Conflicts
+
+__Pack A: docsComponents__
+```typescript
+  export const docsComponents = definePluginPack({
+    name: "docs",
+    conflictPolicy: "preserve",
+    components: [
+      { name: "note", config: { tag: "aside", class: "note" } }
+    ]
+  });
+```
+
+__Pack B: themeComponents__
+
+```typescript
+  export const themeComponents = definePluginPack({
+    name: "theme",
+    conflictPolicy: "override",
+    components: [
+      { name: "note", config: { tag: "div", class: "theme-note" } }
+    ]
+  });
+```
+
+__Installation order:__
+
+```typescript
+  usePluginPack(docsComponents);
+  usePluginPack(themeComponents);
+```
+
+__Result__
+
+themeComponents wins because its policy is "override".
+
+### 10-6. Architectural Diagram (Mermaid)
+
+```mermaid
+flowchart TD
+
+A[Plugin Pack A] --> C[Conflict Resolver]
+B[Plugin Pack B] --> C
+
+C --> R[Component Registry]
+
+subgraph Policies
+    P1[override]
+    P2[preserve]
+    P3[error]
+end
+
+C --> P1
+C --> P2
+C --> P3
+
+R --> M[Markdown Pipeline]
+M --> H[HTML Output]
+```
+
+This shows how packs flow through the conflict resolver before touching the registry.
+
+
+#### 🎁 Why This System Works
+
+✔ Deterministic
+
+No surprises — every conflict is resolved by a clear rule.
+
+✔ Extensible
+
+You can add future policies (e.g., “merge”, “namespace”).
+
+✔ Contributor‑friendly
+
+Pack authors don’t need to understand internals.
+
+✔ Framework‑ready
+
+This is the foundation for a real plugin ecosystem.
+
+---
+## 11. Namespaced Component System
+
+Here’s a clean, extensible namespaced component system that builds on everything we’ve developed so far — but now gives you true isolation between plugin packs. This is the kind of architectural move that turns your Markdown pipeline into a proper framework with predictable behavior, safe extensibility, and contributor‑friendly ergonomics.
+
+__🌐 Why Namespacing?__
+
+Namespacing solves the classic problem:
+
+- Two plugin packs both define note
+- You want them to coexist without conflict
+- You want authors to choose which one they mean
+
+Namespacing gives you:
+```
+  docs:note
+  theme:note
+```
+
+Each resolves to a different component.
+
+### 11-1. Namespaced Component Registry
+
+Instead of a flat registry, we store components under namespaces:
+
+```typescript
+const componentRegistry = {};
+
+export function registerComponent(namespace, name, config) {
+  if (!componentRegistry[namespace]) {
+    componentRegistry[namespace] = {};
+  }
+
+  componentRegistry[namespace][name] = config;
+} 
+```
+
+__Registry shape__
+
+```typescript
+  {
+    docs: {
+      note: { tag: "aside", class: "note" }
+    },
+    theme: {
+      note: { tag: "div", class: "theme-note" }
+    }
+  }
+```
+
+### 11-2. Namespaced Syntax in Markdown
+We allow authors to write:
+
+```
+  :::docs:note
+  Content
+  :::
+
+  :::theme:note
+  Different content
+  :::
+```
+
+### 11-3. Tokenizer That Understands Namespaces
+
+```typescript
+const namespacedComponentTokenizer = {
+  name: "component-block",
+  level: "block",
+  start(src) {
+    return src.match(/:::/)?.index;
+  },
+  tokenizer(src) {
+    const rule = /^:::(\w+):(\w+)\n([\s\S]+?)\n:::/;
+    const match = rule.exec(src);
+    if (!match) return;
+
+    const [raw, namespace, name, text] = match;
+
+    return {
+      type: "component-block",
+      raw,
+      namespace,
+      name,
+      text: text.trim()
+    };
+  }
+};
+```
+
+__Key idea__
+
+We split the identifier into:
+
+- namespace
+- name
+
+This gives you infinite extensibility.
+
+### 11-4. Renderer That Resolves Namespaced Components
+
+```typescript
+  import { marked } from "marked";
+
+  export const namespacedComponentRenderer = {
+    "component-block"(token) {
+      const ns = componentRegistry[token.namespace];
+      if (!ns) return token.raw;
+
+      const def = ns[token.name];
+      if (!def) return token.raw;
+
+      // Custom render override
+      if (def.render) {
+        return def.render(token);
+      }
+
+      return `
+        <${def.tag} class="${def.class}">
+          ${marked.parse(token.text)}
+        </${def.tag}>
+      `;
+    }
+  };
+```
+
+### 11-5. Plugin Pack Format With Namespace
+
+Each pack declares its namespace:
+```typescript
+  export function definePluginPack({
+    namespace,
+    components = [],
+    extensions = [],
+    renderer = {}
+  }) {
+    return { namespace, components, extensions, renderer };
+  }
+```
+
+### 11-6. Plugin Pack Loader
+
+```typescript
+  export function usePluginPack(pack) {
+    const ns = pack.namespace;
+
+    // Register components under namespace
+    for (const c of pack.components) {
+      registerComponent(ns, c.name, c.config);
+    }
+
+    // Tokenizers
+    if (pack.extensions.length) {
+      marked.use({ extensions: pack.extensions });
+    }
+
+    // Renderer overrides
+    if (Object.keys(pack.renderer).length) {
+      marked.use({ renderer: pack.renderer });
+    }
+}
+```
+
+### 11-7. Example Plugin Packs
+
+__Pack A: docsComponents__
+
+```typescript
+  export const docsComponents = definePluginPack({
+    namespace: "docs",
+    components: [
+      { name: "note", config: { tag: "aside", class: "note" } }
+    ],
+    extensions: [namespacedComponentTokenizer],
+    renderer: namespacedComponentRenderer
+  });
+```
+
+__Pack B: themeComponents__
+
+```typescript
+  export const themeComponents = definePluginPack({
+    namespace: "theme",
+    components: [
+      { name: "note", config: { tag: "div", class: "theme-note" } }
+    ],
+    extensions: [namespacedComponentTokenizer],
+    renderer: namespacedComponentRenderer
+  });
+```
+
+
+### 11-8. Markdown Example
+
+```
+  :::docs:note
+  This is a docs note.
+  :::
+
+  :::theme:note
+  This is a theme note.
+  :::
+```
+
+__Output__
+
+```typescript
+  &lt;aside class="note">
+    &lt;p>This is a docs note.&lt;/p>
+  &lt;/aside>
+
+  &lt;div class="theme-note">
+    &lt;p>This is a theme note.&lt;/p>
+  &lt;/div>
+```
+
+### 11-9. Architectural Diagram (Mermaid)
+
+```mermaid
+flowchart TD
+
+A[Plugin Pack A<br/>namespace: docs] --> R[Namespaced Registry]
+B[Plugin Pack B<br/>namespace: theme] --> R
+
+R --> T[Tokenizer<br/>Parses namespace:name]
+T --> P[Parser]
+P --> X[Namespaced Renderer]
+X --> H[HTML Output]
+```
+
+This makes the flow explicit and predictable.
+
+### 🎁 Why Namespacing Is a Big Win
+
+✔ Zero conflicts
+
+Two packs can define note without stepping on each other.
+
+✔ Explicit author intent
+
+Writers choose the component they want.
+
+✔ Scalable
+
+You can have dozens of packs without worrying about collisions.
+
+✔ Framework‑ready
+
+This is how MDX, VuePress, and SvelteKit avoid plugin chaos.
