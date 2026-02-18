@@ -277,11 +277,11 @@ __input:__
 
   const renderer = {
     heading(text, level) {
-      return `<h${level} class="my-heading">${text}</h${level}>`;
+      return `&lt;h${level} class="my-heading">${text}&lt;/h${level}>`;
     },
 
     paragraph(text) {
-      return `<p class="my-paragraph">${text}</p>`;
+      return `&lt;p class="my-paragraph">${text}&lt;/p>`;
     }
   };
 
@@ -436,9 +436,9 @@ Now we tell Marked how to turn that token into HTML.
   const renderer = {
     "component-block"(token) {
       return `
-        <aside class="${token.component}">
+        &lt;aside class="${token.component}">
           ${marked.parse(token.text)}
-        </aside>
+        &lt;/aside>
       `;
     }
   };
@@ -624,9 +624,9 @@ const renderer = {
 
     // Default rendering
     return `
-      <${def.tag} class="${def.class}">
+      &lt;${def.tag} class="${def.class}">
         ${marked.parse(token.text)}
-      </${def.tag}>
+      &lt;/${def.tag}>
     `;
   }
 };
@@ -656,10 +656,10 @@ __Why this is powerful__
   registerComponent("callout", {
     render(token) {
       return `
-        <div class="callout">
-          <strong>Callout:</strong>
+        &lt;div class="callout">
+          &lt;strong>Callout:&lt;/strong>
           ${marked.parse(token.text)}
-        </div>
+        &lt;/div>
       `;
     }
   });
@@ -884,9 +884,9 @@ export const componentRenderer = {
     }
 
     return `
-      <${def.tag} class="${def.class}">
+      &lt;${def.tag} class="${def.class}">
         ${marked.parse(token.text)}
-      </${def.tag}>
+      &lt;/${def.tag}>
     `;
   }
 };
@@ -1307,9 +1307,9 @@ This gives you infinite extensibility.
       }
 
       return `
-        <${def.tag} class="${def.class}">
+        &lt;${def.tag} class="${def.class}">
           ${marked.parse(token.text)}
-        </${def.tag}>
+        &lt;/${def.tag}>
       `;
     }
   };
