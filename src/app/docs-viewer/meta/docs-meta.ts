@@ -77,6 +77,12 @@ export const DocsList: DocMeta[] = [
     "path": "app/docs-viewer/docs/supplements/marked.md",
   },
   {
+    "id": "doc-marked-0200",
+    "title": "Lexer and Parser'",
+    "filetype": "md",
+    "path": "app/docs-viewer/docs/supplements/doc-marked-0200.md",
+  },
+  {
     "id": "github-doc-0100",
     "title": "Github Troubleshooting Guide",
     "filetype": "md",
