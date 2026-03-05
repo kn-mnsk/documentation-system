@@ -2,7 +2,7 @@ import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { markedString, markedExtensionStringRenderer, markedHtml, markedExtensionHtmlRnderer} from './marked.renderer';
+import { markedString, markedExtensionStringRenderer, markedHtml, markedExtensionHtmlRnderer } from './marked.renderer';
 
 import { KatexService } from './katex.service';
 import { MermaidService } from './mermaid.service';
@@ -54,9 +54,14 @@ export class RenderService {
     isDarkMode: boolean
   ): Promise<void> {
 
+    // console.log(`Log: ${this.$title()} renderMarkdownToDOM \nmarkdown=`, markdown, `\nviewer=`, viewer);
+
+
     // 1. Markdown -> html
     const html = this.marked!.parse(markdown, { async: false });
     viewer.innerHTML = html;
+
+    console.log(`Log: ${this.$title()} renderMarkdownToDOM() \markdown`, markdown, `\nviewer`, viewer);
 
     // 2. Sanitize text nodes (replace non-breaking spaces)
     sanitizeNodeText(viewer);
@@ -75,6 +80,8 @@ export class RenderService {
       await this.mermaidService.renderMermaidBlocks(viewer as HTMLElement);
     }
 
+    console.log(`Log: ${this.$title()} \nrenderMarkdownToDOM()`, viewer);
+
     // 7. Wait again for Mermaid’s own layout changes
     // await this.waitForViewerToSettle(viewer);
 
@@ -83,7 +90,7 @@ export class RenderService {
 
     // console.log(`Log: ${this.title()} \nrenderToElement() Finished `);
   }
- 
+
   //-----------------------------------------------------
   // Layout Stabilization, mainly for mermaid rendering
   //-----------------------------------------------------
@@ -136,8 +143,8 @@ export class RenderService {
       }
 
       this.marked.use(markedExtensionStringRenderer);
-    } else{
-        if (!this.marked) {
+    } else {
+      if (!this.marked) {
         this.marked = markedHtml;
       }
 
